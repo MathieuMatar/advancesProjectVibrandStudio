@@ -55,11 +55,12 @@ function Projects({ active = false }: ProjectsProps) {
             <div className={`${transitioning ? 'transitioning' : ''}`}
                 style={{ transform: `translateX(${offset}px)`, flexWrap: active ? 'wrap' : 'nowrap' }}>
                 {repeatedItems.map((item, index) => (
-                    <div key={index} style={{ backgroundImage: `url(http://localhost:3000${item.image})` }}>
+                    <div key={index} style={{ backgroundImage: `url(http://localhost:3000/uploads${item.image})` }}>
                         <h2>{item.name}</h2>
                         <h3>{item.client?.name}</h3>
                         {/*<span>date</span>*/}
-                        <Link state={{ backgroundLocation: location }} className="btn" to={`/projects/${item.id}`}>View Project</Link>
+                        {/* <Link state={{ backgroundLocation: location }} className="btn" to={`/projects/${item.id}`}>View Project</Link> */}
+                        <a className="btn">View Project</a>
                     </div>
                 ))}
             </div>

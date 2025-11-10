@@ -12,15 +12,6 @@ interface Project {
     status?: string;
 }
 
-/*
-"C:\Users\mathi\Desktop\vibrand frontend\vibrand-frontend\public\temp\alyasa.vibrandstudio.com_.png"
-"C:\Users\mathi\Desktop\vibrand frontend\vibrand-frontend\public\temp\bkerki.org_.png"
-"C:\Users\mathi\Desktop\vibrand frontend\vibrand-frontend\public\temp\husj.vibrandstudio.com_.png"
-"C:\Users\mathi\Desktop\vibrand frontend\vibrand-frontend\public\temp\lightpopcrispy.com_.png"
-"C:\Users\mathi\Desktop\vibrand frontend\vibrand-frontend\public\temp\martineicons.com_.png"
-"C:\Users\mathi\Desktop\vibrand frontend\vibrand-frontend\public\temp\sistersofthecross.org.lb_web_.png"
-*/
-
 class ProjectServices {
     static async getAll(): Promise<Project[]> {
         const response = await fetch('http://localhost:3000/graphql', {

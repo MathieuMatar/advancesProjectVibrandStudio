@@ -46,7 +46,7 @@ function Clients({ active }: ClientsProps) {
             {clients.map((item) => (
                 <video
                     key={item.id}
-                    src={`http://localhost:3000${item.image}`}
+                    src={`http://localhost:3000/uploads${item.image}`}
                     title={item.name}
                     muted
                     ref={(el) => { videoRefs.current[item.id] = el; }}
