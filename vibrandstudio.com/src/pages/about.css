@@ -1,0 +1,19 @@
+.aboutTitle {
+    display: flex;
+    margin: 40px;
+    padding: 20px;
+
+    >* {
+        flex: 1;
+    }
+}
+
+.bannerImg {
+    border-radius: 40px;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+
+    
+
+}

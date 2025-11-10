@@ -1,0 +1,148 @@
+:root {
+  --background-color: #F5F5F5;
+  --text-color: #333;
+  --coral: #DB5349;
+  --gray: #383E42;
+  --black: #000000;
+  --white: #F5F5F5;
+  --font-family: 'Arial', sans-serif;
+  --btn-height: 36px;
+  --btn-radius: 25px;
+  --btn-padding: 6px 15px;
+  --btn-border: 1.5px solid var(--black);
+  --btn-font-size: 16px;
+}
+
+
+#root {
+  background: linear-gradient(143deg, #e3e5e6 3%, #fbecb8 52%, #f2e7cc 155%);
+  padding: 15px;
+  display: flex;
+  gap: 15px;
+  padding-left: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+.parent {
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.div4,
+.div5,
+.div6 {
+  background-color: #fbfaf6ab;
+  border-radius: 35px;
+  overflow: hidden;
+}
+
+.parent {
+  display: grid;
+  grid-template-columns: 10fr 11fr;
+  grid-template-rows: 2fr 4fr 3fr 16fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+}
+
+.div1 {
+  grid-area: 1 / 1 / 2 / 2;
+  font-size: 35px;
+}
+
+.div2 {
+  grid-area: 1 / 2 / 2 / 3;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.div2 .btn {
+  background-color: transparent;
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+.div2 .btn:hover {
+  background-color: var(--coral);
+  color: white;
+}
+
+.div3 {
+  grid-area: 2 / 1 / 3 / 2;
+  overflow: hidden;
+}
+
+.div4 {
+  grid-area: 3 / 1 / 5 / 2;
+  overflow: hidden;
+
+}
+
+.div4 iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+
+}
+
+.div5 {
+  grid-area: 2 / 2 / 4 / 3;
+}
+
+.div6 {
+  grid-area: 4 / 2 / 5 / 3;
+}
+
+
+
+.milestones {
+  display: flex;
+  gap: 60px;
+  position: relative;
+  width: fit-content;
+  font-size: 10px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.milestones::before {
+  content: '';
+  width: 50%;
+  background: var(--coral);
+  position: absolute;
+  height: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 20px;
+  z-index: 1;
+  border-radius: 100px;
+
+}
+
+.milestones::after {
+  content: '';
+  width: -webkit-fill-available;
+  background: var(--gray);
+  position: absolute;
+  height: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 20px;
+
+}
+
+.milestones div {
+  border: 7px solid var(--coral);
+  height: 110px;
+  width: 110px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background: #fbfaf6;
+  text-align: center;
+}

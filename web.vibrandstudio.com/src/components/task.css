@@ -1,0 +1,221 @@
+.task {
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    width: 100%;
+    position: relative;
+
+    .task-text {
+        width: -webkit-fill-available;
+    }
+
+    input {
+        padding: 0;
+        margin: 0;
+        display: block;
+        background-color: transparent;
+        border: none;
+        outline: none;
+    }
+
+    .title {
+        font-size: 15px;
+        width: -webkit-fill-available;
+        min-height: 25px;
+        padding-top: 1px;
+
+    }
+
+    .title:focus,
+    .details:focus {
+        outline: none;
+    }
+
+    .details {
+        font-size: 12px;
+        font-weight: 500;
+        padding-left: 1px;
+        margin-top: 0;
+        transition: margin-top 0.2s ease;
+        width: -webkit-fill-available;
+    }
+
+
+
+    .done {
+        width: 22px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2.5px solid #c4c7c5;
+        margin: 2.5px;
+        cursor: pointer;
+    }
+
+    .done:hover {
+        margin: 0;
+        background-color: #c4c7c582;
+        border: none;
+        background-image: url(/done.svg);
+        background-size: 34px;
+        background-position: center;
+        width: 28px;
+        height: 25px;
+
+    }
+
+
+    select {
+        border: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        min-width: 150px;
+        padding: 2.5px 7px;
+        border-radius: 50px;
+        border: 1px solid #c4c7c5;
+        background-color: transparent;
+        margin-left: 5px;
+    }
+
+    select:focus {
+        outline: none;
+    }
+
+    select option {
+        border-radius: 10px;
+    }
+
+    select option:checked {
+        background-color: #ffe5e5;
+        color: #d33;
+    }
+
+    input[type="date"] {
+        border: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding: 1px 7px;
+        border-radius: 50px;
+        border: 1px solid #c4c7c5;
+        background-color: transparent;
+        display: inline-block;
+    }
+
+    .star {
+        background-image: url(/star.svg);
+    }
+
+    .star.full {
+        background-image: url(/starf.svg);
+    }
+
+    input[type="date"],
+    select {
+        display: none;
+    }
+
+    .delete {
+        display: none;
+    }
+
+    .up {
+        background-image: url(/up.svg);
+        position: absolute;
+        left: 0px;
+        bottom: 47%;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .down {
+        background-image: url(/down.svg);
+        position: absolute;
+        left: 0px;
+        top: 47%;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    up:hover,
+    down:hover {
+        opacity: 1;
+    }
+}
+
+.task:hover,
+.task:focus-within {
+    background-color: #f0f0f0;
+}
+
+.task:focus-within {
+    .details {
+        margin-top: 5px;
+    }
+
+    select {
+        display: inline;
+    }
+
+    input[type="date"] {
+        display: inline-block;
+    }
+
+    .delete {
+        display: inline;
+    }
+
+    .up,
+    .down {
+        opacity: 1;
+    }
+}
+
+.task:hover {
+    .delete {
+        display: inline;
+    }
+}
+
+.task span {
+    width: 28px;
+    height: 25px;
+    margin: 2.5px;
+    cursor: pointer;
+    background-position: center;
+    background-size: 20px;
+
+    border-radius: 50%;
+    background-repeat: no-repeat;
+}
+
+.task span:hover {
+    background-color: #c4c7c582;
+}
+
+.filled {
+    display: inline !important;
+}
+
+.task.complete {
+    .done {
+        margin: 0;
+        border: none;
+        background-image: url(/done.svg);
+        background-size: 34px;
+        background-position: center;
+        width: 28px;
+        height: 25px;
+
+    }
+
+    .title {
+        text-decoration: line-through;
+        color: #888;
+    }
+
+}

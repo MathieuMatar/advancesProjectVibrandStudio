@@ -1,0 +1,109 @@
+header {
+    background-color: var(--coral);
+    border-radius: 0 25px 25px 0;
+
+    color: white;
+    position: relative;
+
+    width: 0px;
+    padding: 0px;
+    transition: all 0.3s ease;
+
+    .logos {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        width: 100%;
+        justify-content: center;
+
+        a {
+            width: 50px;
+            height: 30px;
+            background-image: url(/v.svg);
+            background-repeat: no-repeat;
+            background-position: left;
+            background-size: 30px;
+            border-radius: 0;
+            border-right: 2px solid white;
+        }
+
+        span {
+            width: 35px;
+            height: 35px;
+            background-image: url(/user.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            border-radius: 50%;
+            margin-left: 18px;
+        }
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow: hidden;
+
+        div {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 5px 0;
+            padding-left: 15px;
+
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 5px;
+                margin-right: 10px;
+            }
+
+            span {
+                font-weight: bold;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+        }
+
+        div:hover {
+            color: var(--coral);
+            background-color: white;
+            box-shadow: 15px 0px white;
+            border-radius: 20px 0 0 20px;
+        }
+    }
+
+    .hide {
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        background-color: var(--coral);
+        color: darkslategrey;
+        width: 30px;
+        height: 40px;
+        border-radius: 0 40px 40px 0;
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        padding-right: 15px;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        z-index: 5;
+    }
+}
+
+header.visible {
+    padding: 15px;
+    width: auto;
+
+    .hide {
+        width: 80%;
+        background-color: #ffffff80;
+
+    }
+
+    nav {
+        overflow: visible;
+    }
+}

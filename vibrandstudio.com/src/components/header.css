@@ -1,0 +1,119 @@
+header {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: var(--btn-font-size);
+}
+
+header.header-top {
+    background-color: var(--coral);
+    padding: 15px 70px;
+    gap: 20px;
+    color: var(--white);
+}
+
+header.header-top nav {
+    display: flex;
+    margin: 0 auto;
+}
+
+header.header-top svg.logo {
+    width: 100px;
+    height: 38px;
+    object-fit: cover;
+    object-position: 0 -10px;
+    fill: var(--white);
+}
+
+header.header-top svg.home {
+    display: none;
+}
+
+header.header-top a {
+    border: var(--btn-border);
+    border-color: var(--white);
+    padding: var(--btn-padding);
+    height: var(--btn-height);
+    border-radius: var(--btn-radius);
+}
+
+header.header-top>a:hover {
+    background-color: var(--white);
+    color: var(--coral);
+}
+
+header.header-top nav a {
+
+    border: var(--btn-border);
+    border-color: transparent;
+}
+
+header.header-top nav a:hover {
+    border-color: var(--white);
+}
+
+
+header.header-active {
+    position: fixed;
+    top: 15px;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+    border: var(--btn-border);
+    border-color: var(--coral);
+    height: var(--btn-height);
+    border-radius: var(--btn-radius);
+    color: var(--coral);
+}
+
+header.header-active nav {
+    display: contents;
+}
+
+header.header-active a {
+    border: var(--btn-border);
+    border-color: transparent;
+    padding: var(--btn-padding);
+    height: var(--btn-height);
+    border-radius: var(--btn-radius);
+    white-space: nowrap;
+}
+
+header.header-active>a {
+    background-color: var(--coral);
+    color: var(--white);
+}
+
+header.header-active svg.logo {
+    display: none;
+}
+
+header.header-active a.ct {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+header.header-active a.sn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+header.header-active nav a:hover {
+    background-color: var(--coral);
+    color: var(--white);
+}
+
+/* header animations */
+header {
+    background-color: transparent;
+}
+
+/* For the transform animation */
+header.header-active {
+    background-color: #ffffff85;
+}
+
+header,
+header * {
+    transition: all 0.3s ease-in-out;
+}

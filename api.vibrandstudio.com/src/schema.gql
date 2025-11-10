@@ -1,0 +1,247 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
+type Client {
+  address: String
+  clientType: ClientType
+  clientTypeId: Int
+  createdAt: String!
+  email: String
+  id: Int!
+  image: String
+  name: String!
+  phone: String
+  updatedAt: String!
+}
+
+type ClientType {
+  clients: [Client]
+  id: Int!
+  image: String
+  name: String!
+}
+
+input CreateMilestoneInput {
+  date: String
+  description: String
+  dueDate: String
+  name: String!
+  projectId: Int!
+  status: String
+}
+
+input CreateProjectInput {
+  clientId: Int
+  code: String
+  description: String
+  files: String
+  image: String
+  name: String!
+  overview: String
+  public: Boolean
+  status: Status
+}
+
+input CreateTaskInput {
+  assignedToId: Int
+  completedById: Int
+  createdById: Int
+  details: String
+  dueDate: String
+  important: Boolean
+  projectId: Int
+  title: String!
+  visibility: Int
+}
+
+input CreateUserInput {
+  accessLevel: Int
+  companyId: Int
+  email: String
+  image: String
+  name: String!
+  password: String!
+  phone: String
+  position: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Employee {
+  createdAt: String!
+  fatherName: String
+  firstName: String!
+  id: Int!
+  info: String
+  lastName: String!
+  position: String
+  updatedAt: String!
+  user: User!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Milestone {
+  createdAt: String!
+  date: DateTime
+  description: String
+  dueDate: DateTime
+  id: Int!
+  name: String!
+  project: Project!
+  projectId: Int!
+  status: Status!
+  updatedAt: String!
+}
+
+type Mutation {
+  addServiceToProject(projectId: Int!, serviceId: Int!): Project!
+  addUserToProject(projectId: Int!, userId: Int!): Project!
+  create(input: CreateTaskInput!): Task!
+  createMilestone(input: CreateMilestoneInput!): Milestone!
+  createProject(input: CreateProjectInput!): Project!
+  login(input: LoginInput!): AuthResponse!
+  remove(id: Int!): Boolean!
+  removeMilestone(id: Int!): Boolean!
+  signup(input: CreateUserInput!): AuthResponse!
+  update(id: Int!, input: UpdateTaskInput!): Task!
+  updateMilestone(id: Int!, input: UpdateMilestoneInput!): Milestone!
+  updateProject(id: Int!, input: UpdateProjectInput!): Project!
+}
+
+type Project {
+  client: Client
+  clientId: Int
+  code: String
+  createdAt: String!
+  description: String
+  files: String
+  id: Int!
+  image: String
+  milestones: [Milestone]
+  name: String!
+  overview: String
+  public: Boolean!
+  services: [Service]
+  status: Status!
+  tasks: [Task]
+  updatedAt: String!
+  users: [User]
+}
+
+type Query {
+  client(id: Int!): Client!
+  clientType(id: Int!): ClientType!
+  clientTypes: [ClientType!]!
+  clients: [Client!]!
+  employee(id: Int!): Employee!
+  employees: [Employee!]!
+  milestone(id: Int!): Milestone!
+  milestones: [Milestone!]!
+  project(id: Int!): Project!
+  projects: [Project!]!
+  service(id: Int!): Service!
+  services: [Service!]!
+  task(id: Int!): Task!
+  tasks: [Task!]!
+  user(id: Int!): User!
+  users: [User!]!
+}
+
+type Service {
+  active: Boolean!
+  createdAt: String!
+  description: String
+  duration: Int!
+  id: Int!
+  name: String!
+  rate: Float!
+  updatedAt: String!
+}
+
+"""Project/Milestone/Task status enum"""
+enum Status {
+  Completed
+  InProgress
+  Pending
+  Upcoming
+}
+
+type Task {
+  assignedTo: User
+  assignedToId: Int
+  completedBy: User
+  completedById: Int
+  createdAt: String!
+  createdBy: User
+  createdById: Int
+  details: String
+  dueDate: DateTime
+  id: Int!
+  important: Boolean
+  project: Project
+  projectId: Int
+  title: String!
+  updatedAt: String!
+  visibility: Int
+}
+
+input UpdateMilestoneInput {
+  date: String
+  description: String
+  dueDate: String
+  name: String
+  projectId: Int
+  status: String
+}
+
+input UpdateProjectInput {
+  clientId: Int
+  code: String
+  description: String
+  files: String
+  image: String
+  name: String
+  overview: String
+  public: Boolean
+  status: Status
+}
+
+input UpdateTaskInput {
+  assignedToId: Int
+  completedById: Int
+  createdById: Int
+  details: String
+  dueDate: String
+  important: Boolean
+  projectId: Int
+  title: String
+  visibility: Int
+}
+
+type User {
+  accessLevel: Int!
+  company: Client
+  companyId: Int
+  createdAt: String!
+  email: String
+  employee: Employee
+  id: Int!
+  image: String
+  name: String!
+  phone: String
+  position: String
+  updatedAt: String!
+}

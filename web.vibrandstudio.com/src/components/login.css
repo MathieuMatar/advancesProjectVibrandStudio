@@ -1,0 +1,91 @@
+.login {
+  width: 900px;
+  height: 600px;
+  border-radius: 25px;
+  display: flex;
+  padding: 15px;
+  gap: 15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(214deg, var(--coral) 24%, #f0e29c 43%, #589fc2 97%);
+  font-size: 13px;
+
+
+form {
+  width: 45%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+svg {
+  width: 60%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+label {
+  margin-left: 18px;
+  margin-bottom: 5px;
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  padding: 13px;
+  margin-bottom: 25px;
+  border-radius: var(--btn-radius);
+  border: var(--btn-border);
+  border-color: var(--coral);
+  color: var(--coral);
+  background-color: transparent;
+  font-size: var(--btn-font-size);
+}
+
+input[type="submit"] {
+  background-color: var(--coral);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+span {
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--black);
+  text-align: center;
+}
+
+input[type="checkbox"] {
+  margin: 0;
+}
+
+a {
+  text-decoration: underline;
+  font-size: 12px;
+  text-align: center;
+  color: var(--gray);
+  font-weight: 400;
+}
+
+.close {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  margin: 15px;
+  background-color: #ffffffd1;
+  stroke: black;
+  stroke-width: .2;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}}

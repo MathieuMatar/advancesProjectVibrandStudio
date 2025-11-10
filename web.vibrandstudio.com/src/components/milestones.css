@@ -1,0 +1,191 @@
+.project-milestones {
+    font-size: 15px;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .line {
+        width: 5px;
+        background-color: var(--coral);
+        height: 110%;
+        display: block;
+        position: absolute;
+        left: 18.5px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50px;
+    }
+
+    
+
+    .add {
+        margin-left: 63.5px;
+        background: var(--coral);
+        width: fit-content;
+        border-radius: 7px;
+        padding: 3px 13px;
+        margin-top: 9px;
+        margin-bottom: 30px;
+    }
+
+    >div:first-child .line {
+        transform: translateY(-30%);
+    }
+
+
+    >div {
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+
+        >span {
+            margin: 0 10px;
+            color: #666;
+            display: block;
+            border-radius: 50px;
+            width: 25px;
+            height: 25px;
+        }
+
+        h3 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            span {
+                font-size: 10px;
+                background-color: var(--coral);
+                border-radius: 50px;
+                color: white;
+                padding: 2px 10px;
+            }
+        }
+
+        >div {
+            display: flex;
+            gap: 15px;
+            background-color: wheat;
+            min-width: 70%;
+            max-width: 85%;
+            padding: 5px 10px;
+            border-radius: 10px;
+            position: relative;
+            padding-right: 40px;
+        }
+
+        .milestone-date {
+            font-size: 10px;
+            font-weight: light;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-right: 1px solid #eee;
+            padding-right: 10px;
+
+            span {
+                font-size: 15px;
+                font-weight: bold;
+            }
+        }
+
+    }
+
+    .more {
+        height: 40px;
+        width: 40px;
+        background-size: 30px;
+        background-image: url(/more.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .more-options {
+            position: absolute;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+
+            a {
+                display: block;
+                padding: 2px 12px;
+            }
+
+            a:hover {
+                background-color: #eee;
+            }
+        }
+    }
+
+    .more:hover {
+        .more-options {
+            display: block;
+        }
+    }
+
+    form {
+        position: absolute;
+        background: #ffffffb3;
+        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px);
+        max-width: 90%;
+        max-height: 90%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 30px;
+        border-radius: 15px;
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+
+        input {
+            display: block;
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select {
+            display: block;
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: var(--coral);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="button"] {
+            margin-left: 10px;
+            background-image: url(/close.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            background-size: 35px;
+        }
+    }
+}

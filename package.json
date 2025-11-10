@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev": "concurrently \"cd api.vibrandstudio.com && npm run dev\" \"cd web.vibrandstudio.com && npm run dev\" \"cd vibrandstudio.com && npm run dev\"",
+    "api": "cd api.vibrandstudio.com && npm run dev",
+    "web": "cd web.vibrandstudio.com && npm run dev",
+    "main": "cd vibrandstudio.com && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

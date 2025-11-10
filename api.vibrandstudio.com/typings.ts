@@ -1,0 +1,553 @@
+/* eslint-disable */
+import {
+  CollectionCustomizer,
+  TAggregation,
+  TConditionTree,
+  TPaginatedFilter,
+  TPartialRow,
+  TSortClause
+} from '@forestadmin/agent';
+
+export type _projecttoserviceCustomizer = CollectionCustomizer<Schema, '_projecttoservice'>;
+export type _projecttoserviceRecord = TPartialRow<Schema, '_projecttoservice'>;
+export type _projecttoserviceConditionTree = TConditionTree<Schema, '_projecttoservice'>;
+export type _projecttoserviceFilter = TPaginatedFilter<Schema, '_projecttoservice'>;
+export type _projecttoserviceSortClause = TSortClause<Schema, '_projecttoservice'>;
+export type _projecttoserviceAggregation = TAggregation<Schema, '_projecttoservice'>;
+
+export type _projecttouserCustomizer = CollectionCustomizer<Schema, '_projecttouser'>;
+export type _projecttouserRecord = TPartialRow<Schema, '_projecttouser'>;
+export type _projecttouserConditionTree = TConditionTree<Schema, '_projecttouser'>;
+export type _projecttouserFilter = TPaginatedFilter<Schema, '_projecttouser'>;
+export type _projecttouserSortClause = TSortClause<Schema, '_projecttouser'>;
+export type _projecttouserAggregation = TAggregation<Schema, '_projecttouser'>;
+
+export type ClientCustomizer = CollectionCustomizer<Schema, 'client'>;
+export type ClientRecord = TPartialRow<Schema, 'client'>;
+export type ClientConditionTree = TConditionTree<Schema, 'client'>;
+export type ClientFilter = TPaginatedFilter<Schema, 'client'>;
+export type ClientSortClause = TSortClause<Schema, 'client'>;
+export type ClientAggregation = TAggregation<Schema, 'client'>;
+
+export type ClienttypeCustomizer = CollectionCustomizer<Schema, 'clienttype'>;
+export type ClienttypeRecord = TPartialRow<Schema, 'clienttype'>;
+export type ClienttypeConditionTree = TConditionTree<Schema, 'clienttype'>;
+export type ClienttypeFilter = TPaginatedFilter<Schema, 'clienttype'>;
+export type ClienttypeSortClause = TSortClause<Schema, 'clienttype'>;
+export type ClienttypeAggregation = TAggregation<Schema, 'clienttype'>;
+
+export type EmployeeCustomizer = CollectionCustomizer<Schema, 'employee'>;
+export type EmployeeRecord = TPartialRow<Schema, 'employee'>;
+export type EmployeeConditionTree = TConditionTree<Schema, 'employee'>;
+export type EmployeeFilter = TPaginatedFilter<Schema, 'employee'>;
+export type EmployeeSortClause = TSortClause<Schema, 'employee'>;
+export type EmployeeAggregation = TAggregation<Schema, 'employee'>;
+
+export type MilestoneCustomizer = CollectionCustomizer<Schema, 'milestone'>;
+export type MilestoneRecord = TPartialRow<Schema, 'milestone'>;
+export type MilestoneConditionTree = TConditionTree<Schema, 'milestone'>;
+export type MilestoneFilter = TPaginatedFilter<Schema, 'milestone'>;
+export type MilestoneSortClause = TSortClause<Schema, 'milestone'>;
+export type MilestoneAggregation = TAggregation<Schema, 'milestone'>;
+
+export type ProjectCustomizer = CollectionCustomizer<Schema, 'project'>;
+export type ProjectRecord = TPartialRow<Schema, 'project'>;
+export type ProjectConditionTree = TConditionTree<Schema, 'project'>;
+export type ProjectFilter = TPaginatedFilter<Schema, 'project'>;
+export type ProjectSortClause = TSortClause<Schema, 'project'>;
+export type ProjectAggregation = TAggregation<Schema, 'project'>;
+
+export type ServiceCustomizer = CollectionCustomizer<Schema, 'service'>;
+export type ServiceRecord = TPartialRow<Schema, 'service'>;
+export type ServiceConditionTree = TConditionTree<Schema, 'service'>;
+export type ServiceFilter = TPaginatedFilter<Schema, 'service'>;
+export type ServiceSortClause = TSortClause<Schema, 'service'>;
+export type ServiceAggregation = TAggregation<Schema, 'service'>;
+
+export type TaskCustomizer = CollectionCustomizer<Schema, 'task'>;
+export type TaskRecord = TPartialRow<Schema, 'task'>;
+export type TaskConditionTree = TConditionTree<Schema, 'task'>;
+export type TaskFilter = TPaginatedFilter<Schema, 'task'>;
+export type TaskSortClause = TSortClause<Schema, 'task'>;
+export type TaskAggregation = TAggregation<Schema, 'task'>;
+
+export type UserCustomizer = CollectionCustomizer<Schema, 'user'>;
+export type UserRecord = TPartialRow<Schema, 'user'>;
+export type UserConditionTree = TConditionTree<Schema, 'user'>;
+export type UserFilter = TPaginatedFilter<Schema, 'user'>;
+export type UserSortClause = TSortClause<Schema, 'user'>;
+export type UserAggregation = TAggregation<Schema, 'user'>;
+
+
+export type Schema = {
+  '_projecttoservice': {
+    plain: {
+      'A': number;
+      'B': number;
+    };
+    nested: {
+      'project': Schema['project']['plain'] & Schema['project']['nested'];
+      'service': Schema['service']['plain'] & Schema['service']['nested'];
+    };
+    flat: {
+      'project:clientId': number | null;
+      'project:code': string | null;
+      'project:createdAt': string;
+      'project:deadline': string | null;
+      'project:description': string | null;
+      'project:files': string | null;
+      'project:id': number;
+      'project:image': string | null;
+      'project:name': string;
+      'project:overview': string | null;
+      'project:public': boolean;
+      'project:startDate': string | null;
+      'project:status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
+      'project:updatedAt': string;
+      'service:active': boolean;
+      'service:createdAt': string;
+      'service:description': string | null;
+      'service:duration': number;
+      'service:id': number;
+      'service:image': string | null;
+      'service:name': string;
+      'service:rate': number;
+      'service:updatedAt': string;
+      'project:client:address': string | null;
+      'project:client:clientTypeId': number | null;
+      'project:client:createdAt': string;
+      'project:client:email': string | null;
+      'project:client:id': number;
+      'project:client:image': string | null;
+      'project:client:name': string;
+      'project:client:phone': string | null;
+      'project:client:updatedAt': string;
+      'project:client:clientType:id': number;
+      'project:client:clientType:image': string | null;
+      'project:client:clientType:name': string;
+    };
+  };
+  '_projecttouser': {
+    plain: {
+      'A': number;
+      'B': number;
+    };
+    nested: {
+      'project': Schema['project']['plain'] & Schema['project']['nested'];
+      'user': Schema['user']['plain'] & Schema['user']['nested'];
+    };
+    flat: {
+      'project:clientId': number | null;
+      'project:code': string | null;
+      'project:createdAt': string;
+      'project:deadline': string | null;
+      'project:description': string | null;
+      'project:files': string | null;
+      'project:id': number;
+      'project:image': string | null;
+      'project:name': string;
+      'project:overview': string | null;
+      'project:public': boolean;
+      'project:startDate': string | null;
+      'project:status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
+      'project:updatedAt': string;
+      'user:accessLevel': number;
+      'user:companyId': number | null;
+      'user:createdAt': string;
+      'user:email': string | null;
+      'user:id': number;
+      'user:image': string | null;
+      'user:name': string;
+      'user:password': string;
+      'user:phone': string | null;
+      'user:position': string | null;
+      'user:updatedAt': string;
+      'project:client:address': string | null;
+      'project:client:clientTypeId': number | null;
+      'project:client:createdAt': string;
+      'project:client:email': string | null;
+      'project:client:id': number;
+      'project:client:image': string | null;
+      'project:client:name': string;
+      'project:client:phone': string | null;
+      'project:client:updatedAt': string;
+      'user:company:address': string | null;
+      'user:company:clientTypeId': number | null;
+      'user:company:createdAt': string;
+      'user:company:email': string | null;
+      'user:company:id': number;
+      'user:company:image': string | null;
+      'user:company:name': string;
+      'user:company:phone': string | null;
+      'user:company:updatedAt': string;
+      'user:employee:createdAt': string;
+      'user:employee:fatherName': string | null;
+      'user:employee:firstName': string;
+      'user:employee:hireDate': string | null;
+      'user:employee:id': number;
+      'user:employee:info': string | null;
+      'user:employee:lastName': string;
+      'user:employee:position': string | null;
+      'user:employee:updatedAt': string;
+      'project:client:clientType:id': number;
+      'project:client:clientType:image': string | null;
+      'project:client:clientType:name': string;
+      'user:company:clientType:id': number;
+      'user:company:clientType:image': string | null;
+      'user:company:clientType:name': string;
+    };
+  };
+  'client': {
+    plain: {
+      'address': string | null;
+      'clientTypeId': number | null;
+      'createdAt': string;
+      'email': string | null;
+      'id': number;
+      'image': string | null;
+      'name': string;
+      'phone': string | null;
+      'updatedAt': string;
+    };
+    nested: {
+      'clientType': Schema['clienttype']['plain'] & Schema['clienttype']['nested'];
+    };
+    flat: {
+      'clientType:id': number;
+      'clientType:image': string | null;
+      'clientType:name': string;
+    };
+  };
+  'clienttype': {
+    plain: {
+      'id': number;
+      'image': string | null;
+      'name': string;
+    };
+    nested: {};
+    flat: {};
+  };
+  'employee': {
+    plain: {
+      'createdAt': string;
+      'fatherName': string | null;
+      'firstName': string;
+      'hireDate': string | null;
+      'id': number;
+      'info': string | null;
+      'lastName': string;
+      'position': string | null;
+      'updatedAt': string;
+    };
+    nested: {
+      'user': Schema['user']['plain'] & Schema['user']['nested'];
+    };
+    flat: {
+      'user:accessLevel': number;
+      'user:companyId': number | null;
+      'user:createdAt': string;
+      'user:email': string | null;
+      'user:id': number;
+      'user:image': string | null;
+      'user:name': string;
+      'user:password': string;
+      'user:phone': string | null;
+      'user:position': string | null;
+      'user:updatedAt': string;
+      'user:company:address': string | null;
+      'user:company:clientTypeId': number | null;
+      'user:company:createdAt': string;
+      'user:company:email': string | null;
+      'user:company:id': number;
+      'user:company:image': string | null;
+      'user:company:name': string;
+      'user:company:phone': string | null;
+      'user:company:updatedAt': string;
+      'user:company:clientType:id': number;
+      'user:company:clientType:image': string | null;
+      'user:company:clientType:name': string;
+    };
+  };
+  'milestone': {
+    plain: {
+      'createdAt': string;
+      'date': string | null;
+      'description': string | null;
+      'dueDate': string | null;
+      'id': number;
+      'name': string;
+      'projectId': number;
+      'status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
+      'updatedAt': string;
+    };
+    nested: {
+      'project': Schema['project']['plain'] & Schema['project']['nested'];
+    };
+    flat: {
+      'project:clientId': number | null;
+      'project:code': string | null;
+      'project:createdAt': string;
+      'project:deadline': string | null;
+      'project:description': string | null;
+      'project:files': string | null;
+      'project:id': number;
+      'project:image': string | null;
+      'project:name': string;
+      'project:overview': string | null;
+      'project:public': boolean;
+      'project:startDate': string | null;
+      'project:status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
+      'project:updatedAt': string;
+      'project:client:address': string | null;
+      'project:client:clientTypeId': number | null;
+      'project:client:createdAt': string;
+      'project:client:email': string | null;
+      'project:client:id': number;
+      'project:client:image': string | null;
+      'project:client:name': string;
+      'project:client:phone': string | null;
+      'project:client:updatedAt': string;
+      'project:client:clientType:id': number;
+      'project:client:clientType:image': string | null;
+      'project:client:clientType:name': string;
+    };
+  };
+  'project': {
+    plain: {
+      'clientId': number | null;
+      'code': string | null;
+      'createdAt': string;
+      'deadline': string | null;
+      'description': string | null;
+      'files': string | null;
+      'id': number;
+      'image': string | null;
+      'name': string;
+      'overview': string | null;
+      'public': boolean;
+      'startDate': string | null;
+      'status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
+      'updatedAt': string;
+    };
+    nested: {
+      'client': Schema['client']['plain'] & Schema['client']['nested'];
+    };
+    flat: {
+      'client:address': string | null;
+      'client:clientTypeId': number | null;
+      'client:createdAt': string;
+      'client:email': string | null;
+      'client:id': number;
+      'client:image': string | null;
+      'client:name': string;
+      'client:phone': string | null;
+      'client:updatedAt': string;
+      'client:clientType:id': number;
+      'client:clientType:image': string | null;
+      'client:clientType:name': string;
+    };
+  };
+  'service': {
+    plain: {
+      'active': boolean;
+      'createdAt': string;
+      'description': string | null;
+      'duration': number;
+      'id': number;
+      'image': string | null;
+      'name': string;
+      'rate': number;
+      'updatedAt': string;
+    };
+    nested: {};
+    flat: {};
+  };
+  'task': {
+    plain: {
+      'assignedToId': number | null;
+      'completedById': number | null;
+      'createdAt': string;
+      'createdById': number | null;
+      'details': string | null;
+      'dueDate': string | null;
+      'id': number;
+      'important': boolean;
+      'projectId': number | null;
+      'title': string;
+      'updatedAt': string;
+      'visibility': number | null;
+    };
+    nested: {
+      'assignedTo': Schema['user']['plain'] & Schema['user']['nested'];
+      'completedBy': Schema['user']['plain'] & Schema['user']['nested'];
+      'createdBy': Schema['user']['plain'] & Schema['user']['nested'];
+      'project': Schema['project']['plain'] & Schema['project']['nested'];
+    };
+    flat: {
+      'assignedTo:accessLevel': number;
+      'assignedTo:companyId': number | null;
+      'assignedTo:createdAt': string;
+      'assignedTo:email': string | null;
+      'assignedTo:id': number;
+      'assignedTo:image': string | null;
+      'assignedTo:name': string;
+      'assignedTo:password': string;
+      'assignedTo:phone': string | null;
+      'assignedTo:position': string | null;
+      'assignedTo:updatedAt': string;
+      'completedBy:accessLevel': number;
+      'completedBy:companyId': number | null;
+      'completedBy:createdAt': string;
+      'completedBy:email': string | null;
+      'completedBy:id': number;
+      'completedBy:image': string | null;
+      'completedBy:name': string;
+      'completedBy:password': string;
+      'completedBy:phone': string | null;
+      'completedBy:position': string | null;
+      'completedBy:updatedAt': string;
+      'createdBy:accessLevel': number;
+      'createdBy:companyId': number | null;
+      'createdBy:createdAt': string;
+      'createdBy:email': string | null;
+      'createdBy:id': number;
+      'createdBy:image': string | null;
+      'createdBy:name': string;
+      'createdBy:password': string;
+      'createdBy:phone': string | null;
+      'createdBy:position': string | null;
+      'createdBy:updatedAt': string;
+      'project:clientId': number | null;
+      'project:code': string | null;
+      'project:createdAt': string;
+      'project:deadline': string | null;
+      'project:description': string | null;
+      'project:files': string | null;
+      'project:id': number;
+      'project:image': string | null;
+      'project:name': string;
+      'project:overview': string | null;
+      'project:public': boolean;
+      'project:startDate': string | null;
+      'project:status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
+      'project:updatedAt': string;
+      'assignedTo:company:address': string | null;
+      'assignedTo:company:clientTypeId': number | null;
+      'assignedTo:company:createdAt': string;
+      'assignedTo:company:email': string | null;
+      'assignedTo:company:id': number;
+      'assignedTo:company:image': string | null;
+      'assignedTo:company:name': string;
+      'assignedTo:company:phone': string | null;
+      'assignedTo:company:updatedAt': string;
+      'assignedTo:employee:createdAt': string;
+      'assignedTo:employee:fatherName': string | null;
+      'assignedTo:employee:firstName': string;
+      'assignedTo:employee:hireDate': string | null;
+      'assignedTo:employee:id': number;
+      'assignedTo:employee:info': string | null;
+      'assignedTo:employee:lastName': string;
+      'assignedTo:employee:position': string | null;
+      'assignedTo:employee:updatedAt': string;
+      'completedBy:company:address': string | null;
+      'completedBy:company:clientTypeId': number | null;
+      'completedBy:company:createdAt': string;
+      'completedBy:company:email': string | null;
+      'completedBy:company:id': number;
+      'completedBy:company:image': string | null;
+      'completedBy:company:name': string;
+      'completedBy:company:phone': string | null;
+      'completedBy:company:updatedAt': string;
+      'completedBy:employee:createdAt': string;
+      'completedBy:employee:fatherName': string | null;
+      'completedBy:employee:firstName': string;
+      'completedBy:employee:hireDate': string | null;
+      'completedBy:employee:id': number;
+      'completedBy:employee:info': string | null;
+      'completedBy:employee:lastName': string;
+      'completedBy:employee:position': string | null;
+      'completedBy:employee:updatedAt': string;
+      'createdBy:company:address': string | null;
+      'createdBy:company:clientTypeId': number | null;
+      'createdBy:company:createdAt': string;
+      'createdBy:company:email': string | null;
+      'createdBy:company:id': number;
+      'createdBy:company:image': string | null;
+      'createdBy:company:name': string;
+      'createdBy:company:phone': string | null;
+      'createdBy:company:updatedAt': string;
+      'createdBy:employee:createdAt': string;
+      'createdBy:employee:fatherName': string | null;
+      'createdBy:employee:firstName': string;
+      'createdBy:employee:hireDate': string | null;
+      'createdBy:employee:id': number;
+      'createdBy:employee:info': string | null;
+      'createdBy:employee:lastName': string;
+      'createdBy:employee:position': string | null;
+      'createdBy:employee:updatedAt': string;
+      'project:client:address': string | null;
+      'project:client:clientTypeId': number | null;
+      'project:client:createdAt': string;
+      'project:client:email': string | null;
+      'project:client:id': number;
+      'project:client:image': string | null;
+      'project:client:name': string;
+      'project:client:phone': string | null;
+      'project:client:updatedAt': string;
+      'assignedTo:company:clientType:id': number;
+      'assignedTo:company:clientType:image': string | null;
+      'assignedTo:company:clientType:name': string;
+      'completedBy:company:clientType:id': number;
+      'completedBy:company:clientType:image': string | null;
+      'completedBy:company:clientType:name': string;
+      'createdBy:company:clientType:id': number;
+      'createdBy:company:clientType:image': string | null;
+      'createdBy:company:clientType:name': string;
+      'project:client:clientType:id': number;
+      'project:client:clientType:image': string | null;
+      'project:client:clientType:name': string;
+    };
+  };
+  'user': {
+    plain: {
+      'accessLevel': number;
+      'companyId': number | null;
+      'createdAt': string;
+      'email': string | null;
+      'id': number;
+      'image': string | null;
+      'name': string;
+      'password': string;
+      'phone': string | null;
+      'position': string | null;
+      'updatedAt': string;
+    };
+    nested: {
+      'company': Schema['client']['plain'] & Schema['client']['nested'];
+      'employee': Schema['employee']['plain'] & Schema['employee']['nested'];
+    };
+    flat: {
+      'company:address': string | null;
+      'company:clientTypeId': number | null;
+      'company:createdAt': string;
+      'company:email': string | null;
+      'company:id': number;
+      'company:image': string | null;
+      'company:name': string;
+      'company:phone': string | null;
+      'company:updatedAt': string;
+      'employee:createdAt': string;
+      'employee:fatherName': string | null;
+      'employee:firstName': string;
+      'employee:hireDate': string | null;
+      'employee:id': number;
+      'employee:info': string | null;
+      'employee:lastName': string;
+      'employee:position': string | null;
+      'employee:updatedAt': string;
+      'company:clientType:id': number;
+      'company:clientType:image': string | null;
+      'company:clientType:name': string;
+    };
+  };
+};

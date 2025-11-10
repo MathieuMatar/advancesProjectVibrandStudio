@@ -1,0 +1,89 @@
+.projects-track {
+  width: 100%;
+  position: relative;
+  margin-bottom: 35px;
+}
+
+.projects-track>div {
+  display: flex;
+  justify-content: center;
+}
+
+.projects-track>div.transitioning {
+  transition: transform 0.5s ease-in-out;
+}
+
+.projects-track>div>div {
+  flex-shrink: 0;
+  width: 400px;
+  height: 280px;
+  background: linear-gradient(to bottom right, #3b82f6, #06b6d4);
+  margin: 30px;
+  position: relative;
+  transition: all 0.5s ease;
+  border-radius: 20px;
+  overflow: hidden;
+  background-image: url('https://vibrandstudio.com/prjct.png');
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--white);
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+}
+
+.projects-track svg {
+  position: absolute;
+  top: 50%;
+  background-color:
+    color-mix(in srgb, var(--coral) 77%, transparent);
+  color: white;
+  fill: none;
+  padding: 4px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transform: translateY(-50%);
+  width: var(--btn-height);
+  height: var(--btn-height);
+  stroke: currentColor;
+  stroke-width: 0.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  border: 2px solid var(--coral);
+  box-shadow: 0 0px 0px 2px color-mix(in srgb, var(--coral) 77%, transparent);
+}
+
+.projects-track .btn {
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.projects-track>div>div * {
+    z-index: 3;
+    position: relative;
+    transition: all 0.7s ease;
+    opacity: 0;
+}
+
+.projects-track>div>div:hover * {
+    opacity: 1;
+}
+
+.projects-track>div>div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    transition: all 0.7s ease;
+    cursor: pointer;
+}
+
+.projects-track>div>div:hover::before {
+    background-color: color-mix(in srgb, var(--gray) 50%, transparent);
+}

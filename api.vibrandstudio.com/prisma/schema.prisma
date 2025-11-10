@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ================== SERVICE ==================
+model Service {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(200)
+  description String?   @db.Text
+  rate        Float
+  duration    Int
+  active      Boolean   @default(true)
+  image       String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  projects    Project[] // implicit many-to-many
+}
+
+// ================== CLIENT & CLIENTTYPE ==================
+model Client {
+  id           Int         @id @default(autoincrement())
+  name         String      @db.VarChar(100)
+  email        String?     @db.VarChar(100)
+  phone        String?     @db.VarChar(20)
+  address      String?     @db.VarChar(200)
+  clientType   ClientType? @relation(fields: [clientTypeId], references: [id])
+  clientTypeId Int?
+  users        User[]      // one-to-many
+  projects     Project[]   // one-to-many
+  image        String?     @default("default.png") @db.VarChar(255)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model ClientType {
+  id       Int      @id @default(autoincrement())
+  name     String   @db.VarChar(100)
+  image    String?  @db.VarChar(255)
+  clients  Client[]
+}
+
+// ================== USER & EMPLOYEE ==================
+model User {
+  id             Int       @id @default(autoincrement())
+  name           String    @db.VarChar(100)
+  password       String    @db.VarChar(100)
+  company        Client?   @relation(fields: [companyId], references: [id])
+  companyId      Int?
+  position       String?   @db.VarChar(50)
+  email          String?   @db.VarChar(100)
+  phone          String?   @db.VarChar(20)
+  image          String?   @db.VarChar(255)
+  accessLevel    Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  employee       Employee? @relation("UserEmployee")
+  createdTasks   Task[]    @relation("CreatedTasks")
+  assignedTasks  Task[]    @relation("AssignedTasks")
+  completedTasks Task[]    @relation("CompletedTasks")
+
+  projects       Project[] // implicit many-to-many
+}
+
+model Employee {
+  id         Int       @id
+  user       User      @relation("UserEmployee", fields: [id], references: [id])
+  firstName  String    @db.VarChar(30)
+  fatherName String?   @db.VarChar(30)
+  lastName   String    @db.VarChar(30)
+  position   String?   @db.VarChar(50)
+  hireDate   DateTime?
+  info       String?   @db.Text
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+// ================== PROJECT & MILESTONE ==================
+model Project {
+  id          Int         @id @default(autoincrement())
+  name        String      @db.VarChar(100)
+  code        String?     @db.VarChar(50)
+  description String?     @db.VarChar(200)
+  client      Client?     @relation(fields: [clientId], references: [id])
+  clientId    Int?
+  startDate   DateTime?   @default(now())
+  deadline    DateTime?   @default(now())
+  status      Status      @default(Pending)
+  overview    String?     @db.VarChar(800)
+  files       String?     @db.VarChar(800)
+  image       String?     @default("default.png") @db.VarChar(255)
+  public      Boolean     @default(false)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  milestones  Milestone[]
+  tasks       Task[]
+  services    Service[]   // implicit many-to-many
+  users       User[]      // implicit many-to-many for employees too
+}
+
+model Milestone {
+  id          Int       @id @default(autoincrement())
+  project     Project   @relation(fields: [projectId], references: [id])
+  projectId   Int
+  name        String    @db.VarChar(50)
+  description String?   @db.VarChar(200)
+  date        DateTime? @default(now())
+  dueDate     DateTime?
+  status      Status    @default(Pending)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+// ================== TASK ==================
+model Task {
+  id            Int       @id @default(autoincrement())
+  project       Project?  @relation(fields: [projectId], references: [id])
+  projectId     Int?
+  createdBy     User?     @relation("CreatedTasks", fields: [createdById], references: [id])
+  createdById   Int?
+  assignedTo    User?     @relation("AssignedTasks", fields: [assignedToId], references: [id])
+  assignedToId  Int?
+  completedBy   User?     @relation("CompletedTasks", fields: [completedById], references: [id])
+  completedById Int?
+  dueDate       DateTime? @default(now())
+  title         String    @db.VarChar(255)
+  details       String?   @db.Text
+  important     Boolean   @default(false)
+  visibility    Int?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// ================== ENUMS ==================
+enum Status {
+  Upcoming
+  Pending
+  InProgress
+  Completed
+}

@@ -1,0 +1,43 @@
+footer {
+    background-color: var(--coral);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 70px;
+    align-items: center;
+}
+
+footer svg.logo {
+    width: 100px;
+    fill: white;
+}
+
+footer .legal {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--btn-font-size);
+}
+
+footer .social {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
+}
+
+footer .social svg {
+    width: 30px;
+    height: 30px;
+    background-color: var(--white);
+    border-radius: 50%;
+    display: block;
+}
+
+footer .social svg path {
+    scale: 0.6;
+    transform-origin: center;
+    fill: var(--coral);
+}
