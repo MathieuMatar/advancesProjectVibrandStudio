@@ -1,9 +1,36 @@
+/**
+ * Login.tsx
+ * 
+ * User authentication login form component.
+ */
+
 import './login.css'
 import { useState } from 'react'
+import { ErrorNotification } from './ErrorNotification';
 import { useAuth } from '../contexts/AuthContext';
 
+/**
+ * Login
+ * 
+ * Displays a login form for user authentication.
+ * 
+ * Features:
+ * - Email and password input fields
+ * - Show/hide password toggle
+ * - Remember me checkbox
+ * - Error notifications
+ * - Loading state during login
+ * - Links to forgot password and terms
+ * 
+ * @component
+ * @returns {JSX.Element} The login form component
+ * 
+ * @example
+ * import { Login } from './components/Login'
+ * <Login />
+ */
 function Login() {
-  const { login, loading, error, user } = useAuth();
+  const { login, loading, error, setError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,7 +43,9 @@ function Login() {
   };
 
   return (
-    <div className="login">
+    <>
+      <ErrorNotification error={error} onClose={() => setError(null)} />
+      <div className="login">
       <form onSubmit={handleSubmit}>
         <span>Log In</span>
         <label htmlFor="email">Email</label>
@@ -47,6 +76,7 @@ function Login() {
       </svg>
       <svg onClick={() => (window.location.href = 'https://vibrandstudio.com')} className='close' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4" role="button" aria-label="Go to vibrandstudio.com" style={{ cursor: 'pointer' }}><path d="m1 1 2 2m0-2L1 3" /></svg>
     </div>
+    </>
   )
 }
 

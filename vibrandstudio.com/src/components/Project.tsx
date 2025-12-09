@@ -7,6 +7,8 @@ function Project() {
     const navigate = useNavigate();
     const { id } = useParams();
 
+    console.log("Project ID:", id);
+
     const back = () => {
         if (window.history.length > 1) {
             navigate(-1);

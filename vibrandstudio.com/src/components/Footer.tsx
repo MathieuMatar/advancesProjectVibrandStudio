@@ -18,16 +18,16 @@ function Footer() {
                 <a href="/copyrighttext">Copyright Text</a>
             </div>
             <div className="social">
-                <a href="#" title="Facebook" target="_blank" >
+                <a href="https://www.facebook.com/VIBRANDSTUDIOS.LB/" title="Facebook" target="_blank" >
                     <Facebook />
                 </a>
-                <a href="#" title="Instagram" target="_blank" >
+                <a href="https://www.instagram.com/vibrandstudio.lb/" title="Instagram" target="_blank" >
                     <Instagram />
                 </a>
-                <a href="#" title="Email" target="_blank" >
+                <a href="mailto:VibrandStudio@gmail.com" title="Email" target="_blank" >
                     <Email />
                 </a>
-                <a href="#" title="LinkedIn">
+                <a href="https://lb.linkedin.com/in/martine-boutros-91009563" title="LinkedIn">
                     <LinkedIn />
                 </a>
                 <a href="#" title="LinkedIn" target="_blank" >

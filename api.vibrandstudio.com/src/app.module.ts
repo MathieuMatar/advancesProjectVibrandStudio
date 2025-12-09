@@ -8,12 +8,15 @@ import { ProjectsModule } from './projects/projects.module';
 import { MilestonesModule } from './milestones/milestones.module';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
+import { UploadModule } from './upload/upload.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { GqlAuthGuard } from './auth/gql-auth.guard';
+import { AccessGuard } from './auth/access.guard'; // ADD THIS
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -35,11 +38,17 @@ import { GqlAuthGuard } from './auth/gql-auth.guard';
     ProjectsModule,
     MilestonesModule,
     TasksModule,
+    UploadModule,
+    MailModule,
   ],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: GqlAuthGuard, // global autentication
+      useClass: GqlAuthGuard, // global authentication - runs first
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AccessGuard, // global access level check - runs second
     },
   ],
 })
@@ -53,7 +62,10 @@ import { GqlAuthGuard } from './auth/gql-auth.guard';
  * - GraphQLModule is configured to forward the incoming HTTP request into the
  *   GraphQL context so guards (like `GqlAuthGuard`) can access headers and request
  *   user information.
- * - A global authentication guard is provided via `APP_GUARD` to protect resolvers
- *   by default.
+ * - Two global guards are applied in order:
+ *   1. GqlAuthGuard: Validates JWT tokens and attaches user to request
+ *   2. AccessGuard: Checks if user has sufficient access level for protected routes
+ * - Routes can use @Public() to bypass both guards, or @Access(level) to require
+ *   a minimum access level.
  */
 export class AppModule { }

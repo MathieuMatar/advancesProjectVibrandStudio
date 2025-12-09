@@ -7,8 +7,15 @@ type AuthResponse {
   user: User!
 }
 
+input ChangePasswordDTO {
+  newPassword: String!
+  oldPassword: String!
+}
+
 type Client {
+  active: Boolean
   address: String
+  animation: String
   clientType: ClientType
   clientTypeId: Int
   createdAt: String!
@@ -17,6 +24,7 @@ type Client {
   image: String
   name: String!
   phone: String
+  public: Boolean
   updatedAt: String!
 }
 
@@ -25,6 +33,19 @@ type ClientType {
   id: Int!
   image: String
   name: String!
+}
+
+input ContactInput {
+  communications: Boolean!
+  company: String!
+  companyType: String!
+  country: String!
+  email: String!
+  message: String!
+  name: String!
+  newsletter: Boolean!
+  phone: String!
+  policy: Boolean!
 }
 
 input CreateMilestoneInput {
@@ -42,6 +63,7 @@ input CreateProjectInput {
   description: String
   files: String
   image: String
+  images: [String]
   name: String!
   overview: String
   public: Boolean
@@ -109,9 +131,14 @@ type Milestone {
 type Mutation {
   addServiceToProject(projectId: Int!, serviceId: Int!): Project!
   addUserToProject(projectId: Int!, userId: Int!): Project!
+
+  """Change user password. Requires authentication."""
+  changePassword(input: ChangePasswordDTO!): AuthResponse!
+  contactUs(input: ContactInput!): Boolean!
   create(input: CreateTaskInput!): Task!
   createMilestone(input: CreateMilestoneInput!): Milestone!
   createProject(input: CreateProjectInput!): Project!
+  joinNewsletter(email: String!): Boolean!
   login(input: LoginInput!): AuthResponse!
   remove(id: Int!): Boolean!
   removeMilestone(id: Int!): Boolean!
@@ -130,6 +157,7 @@ type Project {
   files: String
   id: Int!
   image: String
+  images: [String]
   milestones: [Milestone]
   name: String!
   overview: String
@@ -213,6 +241,7 @@ input UpdateProjectInput {
   description: String
   files: String
   image: String
+  images: [String!]
   name: String
   overview: String
   public: Boolean

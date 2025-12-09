@@ -1,6 +1,15 @@
+/**
+ * Task.tsx
+ * 
+ * Individual task component for displaying and editing task details.
+ */
+
 import './task.css';
 import { useTask } from '../hooks/useTask';
 
+/**
+ * Props for the Task component
+ */
 interface TaskProps {
     task: any;
     setTask: (newTask: any) => void;
@@ -11,6 +20,44 @@ interface TaskProps {
     id: number;
 }
 
+/**
+ * Task
+ * 
+ * Individual task card component with inline editing capabilities.
+ * 
+ * Features:
+ * - Inline editing of title, details, and due date
+ * - Task assignment to project users
+ * - Visibility level selection (Me, Person Assigned To, Team, Client, All)
+ * - Mark task as complete/incomplete
+ * - Reorder tasks up/down within the list
+ * - Delete task
+ * - Mark task as important (star icon)
+ * 
+ * Props:
+ * - task: any - Task object with properties like title, details, dueDate, assignedToId, etc.
+ * - setTask: Function to update the task object
+ * - users: Array of users available for assignment
+ * - reorder: Function to reorder task (direction: 'up' | 'down')
+ * - deleteTask: Function to delete the task
+ * - complete: Function to toggle task completion status
+ * - id: number - Numeric task ID
+ * 
+ * @component
+ * @param {TaskProps} props - Component props
+ * @returns {JSX.Element} The task card component
+ * 
+ * @example
+ * <Task 
+ *   task={taskData}
+ *   setTask={setTaskData}
+ *   users={projectUsers}
+ *   reorder={(dir) => handleReorder(taskId, dir)}
+ *   deleteTask={() => handleDelete(taskId)}
+ *   complete={() => handleComplete(taskId)}
+ *   id={taskId}
+ * />
+ */
 function Task({ task, setTask, users, reorder, deleteTask, complete, id }: TaskProps) {
     const { handleFocusIn, handleFocusOut, toggleImportant } = useTask(task, setTask, id);
 

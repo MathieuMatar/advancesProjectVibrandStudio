@@ -33,7 +33,15 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
-  const uploadsPath = join(__dirname, '..', '..', 'uploads');
+  const uploadsPath = join(__dirname, '..', 'uploads');
+
+  // Ensure uploads directory exists (create if missing)
+  if (!fs.existsSync(uploadsPath)) {
+    fs.mkdirSync(uploadsPath, { recursive: true });
+    console.log(`Created uploads directory at ${uploadsPath}`);
+  }
+
+  console.log(`Serving uploads from: ${uploadsPath}`);
 
   // CORS
   app.enableCors({
@@ -41,6 +49,7 @@ async function bootstrap() {
       'http://localhost:5173',
       'http://localhost:5174',
       'https://app.forestadmin.com',
+      'http://localhost:4173',
       /\.forestadmin\.com$/,
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',

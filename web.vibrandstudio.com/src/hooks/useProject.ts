@@ -18,6 +18,8 @@ interface Project {
   users?: any;
   milestones?: any;
   tasks?: any;
+  public?: boolean;
+  services?: any;
 }
 
 /**
@@ -59,24 +61,28 @@ export function useProject(id: number) {
       .then((fetched) => {
         setProject(fetched);
       })
-      .catch((err) => {
-        console.error("Error fetching project:", err);
-        setError(err);
+      .catch((err: any) => {
+        let message = 'Error fetching project';
+        if (err?.message) message += `: ${err.message}`;
+        setError(new Error(message));
       })
       .finally(() => setLoading(false));
   }, [id]);
 
   const updateProject = async (changes: Partial<Project>) => {
+    setError(null);
     try {
       await projectService.updateProject(id, changes);
       const refreshed = await projectService.getProjectById(id);
       setProject(refreshed);
       return refreshed;
-    } catch (err) {
-      console.error("Error updating project:", err);
+    } catch (err: any) {
+      let message = 'Error updating project';
+      if (err?.message) message += `: ${err.message}`;
+      setError(new Error(message));
       throw err;
     }
   };
 
-  return { project, setProject, updateProject, loading, error };
+  return { project, setProject, updateProject, loading, error, setError };
 }

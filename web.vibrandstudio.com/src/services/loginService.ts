@@ -29,7 +29,7 @@ class LoginService {
      * console.log(data.token, data.user.id)
      */
     static async login(email: string, password: string) {
-        const query = `mutation Login($input: LoginInput!) { login(input: $input) { token user { id name email } } }`
+        const query = `mutation Login($input: LoginInput!) { login(input: $input) { token user { id name email image accessLevel } } }`
         const result = await request(query, { input: { email, password } })
         const loginData = result?.login
         if (!loginData || !loginData.token || !loginData.user) {
@@ -38,6 +38,35 @@ class LoginService {
         await Storage.setUser(loginData)
 
         return loginData
+    }
+
+    /**
+     * 
+     * @param oldPassword 
+     * @param newPassword 
+     * @returns the new user json after the password had been changed with it's new token
+     * add new user json to local storage
+     */
+
+    static async changePassword(oldPassword: string, newPassword: string) {
+        const query = `mutation ChangePassword($oldPassword: String!, $newPassword: String!) { changePassword(input: { oldPassword: $oldPassword, newPassword: $newPassword }) { token user { id email name image accessLevel } } }`
+        const result = await request(query, { oldPassword, newPassword })
+        const changePasswordData = result?.changePassword
+        if (!changePasswordData || !changePasswordData.token || !changePasswordData.user) {
+            return false
+        }
+        await Storage.setUser(changePasswordData)
+
+        return true
+    }
+
+    /**
+     * Logout the current user by clearing local storage and reloading the app.
+     */
+
+    static async logout() {
+        await Storage.clearUser();
+        window.location.reload();
     }
 }
 

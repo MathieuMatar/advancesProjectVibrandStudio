@@ -3,6 +3,9 @@ import { EmployeesResolver } from './employees.resolver';
 import { EmployeesService } from './employees.service';
 import { PrismaModule } from '../prisma/prisma.module';
 
+/**
+ * Provides employee GraphQL resolvers and service.
+ */
 @Module({
   imports: [PrismaModule],
   providers: [EmployeesResolver, EmployeesService],

@@ -98,6 +98,7 @@ export type Schema = {
       'project:files': string | null;
       'project:id': number;
       'project:image': string | null;
+      'project:images': string | null;
       'project:name': string;
       'project:overview': string | null;
       'project:public': boolean;
@@ -113,7 +114,9 @@ export type Schema = {
       'service:name': string;
       'service:rate': number;
       'service:updatedAt': string;
+      'project:client:active': boolean | null;
       'project:client:address': string | null;
+      'project:client:animation': string | null;
       'project:client:clientTypeId': number | null;
       'project:client:createdAt': string;
       'project:client:email': string | null;
@@ -121,6 +124,7 @@ export type Schema = {
       'project:client:image': string | null;
       'project:client:name': string;
       'project:client:phone': string | null;
+      'project:client:public': boolean | null;
       'project:client:updatedAt': string;
       'project:client:clientType:id': number;
       'project:client:clientType:image': string | null;
@@ -145,6 +149,7 @@ export type Schema = {
       'project:files': string | null;
       'project:id': number;
       'project:image': string | null;
+      'project:images': string | null;
       'project:name': string;
       'project:overview': string | null;
       'project:public': boolean;
@@ -162,7 +167,9 @@ export type Schema = {
       'user:phone': string | null;
       'user:position': string | null;
       'user:updatedAt': string;
+      'project:client:active': boolean | null;
       'project:client:address': string | null;
+      'project:client:animation': string | null;
       'project:client:clientTypeId': number | null;
       'project:client:createdAt': string;
       'project:client:email': string | null;
@@ -170,8 +177,11 @@ export type Schema = {
       'project:client:image': string | null;
       'project:client:name': string;
       'project:client:phone': string | null;
+      'project:client:public': boolean | null;
       'project:client:updatedAt': string;
+      'user:company:active': boolean | null;
       'user:company:address': string | null;
+      'user:company:animation': string | null;
       'user:company:clientTypeId': number | null;
       'user:company:createdAt': string;
       'user:company:email': string | null;
@@ -179,6 +189,7 @@ export type Schema = {
       'user:company:image': string | null;
       'user:company:name': string;
       'user:company:phone': string | null;
+      'user:company:public': boolean | null;
       'user:company:updatedAt': string;
       'user:employee:createdAt': string;
       'user:employee:fatherName': string | null;
@@ -199,7 +210,9 @@ export type Schema = {
   };
   'client': {
     plain: {
+      'active': boolean | null;
       'address': string | null;
+      'animation': string | null;
       'clientTypeId': number | null;
       'createdAt': string;
       'email': string | null;
@@ -207,6 +220,7 @@ export type Schema = {
       'image': string | null;
       'name': string;
       'phone': string | null;
+      'public': boolean | null;
       'updatedAt': string;
     };
     nested: {
@@ -254,7 +268,9 @@ export type Schema = {
       'user:phone': string | null;
       'user:position': string | null;
       'user:updatedAt': string;
+      'user:company:active': boolean | null;
       'user:company:address': string | null;
+      'user:company:animation': string | null;
       'user:company:clientTypeId': number | null;
       'user:company:createdAt': string;
       'user:company:email': string | null;
@@ -262,6 +278,7 @@ export type Schema = {
       'user:company:image': string | null;
       'user:company:name': string;
       'user:company:phone': string | null;
+      'user:company:public': boolean | null;
       'user:company:updatedAt': string;
       'user:company:clientType:id': number;
       'user:company:clientType:image': string | null;
@@ -292,13 +309,16 @@ export type Schema = {
       'project:files': string | null;
       'project:id': number;
       'project:image': string | null;
+      'project:images': string | null;
       'project:name': string;
       'project:overview': string | null;
       'project:public': boolean;
       'project:startDate': string | null;
       'project:status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
       'project:updatedAt': string;
+      'project:client:active': boolean | null;
       'project:client:address': string | null;
+      'project:client:animation': string | null;
       'project:client:clientTypeId': number | null;
       'project:client:createdAt': string;
       'project:client:email': string | null;
@@ -306,6 +326,7 @@ export type Schema = {
       'project:client:image': string | null;
       'project:client:name': string;
       'project:client:phone': string | null;
+      'project:client:public': boolean | null;
       'project:client:updatedAt': string;
       'project:client:clientType:id': number;
       'project:client:clientType:image': string | null;
@@ -322,6 +343,7 @@ export type Schema = {
       'files': string | null;
       'id': number;
       'image': string | null;
+      'images': string | null;
       'name': string;
       'overview': string | null;
       'public': boolean;
@@ -333,7 +355,9 @@ export type Schema = {
       'client': Schema['client']['plain'] & Schema['client']['nested'];
     };
     flat: {
+      'client:active': boolean | null;
       'client:address': string | null;
+      'client:animation': string | null;
       'client:clientTypeId': number | null;
       'client:createdAt': string;
       'client:email': string | null;
@@ -341,6 +365,7 @@ export type Schema = {
       'client:image': string | null;
       'client:name': string;
       'client:phone': string | null;
+      'client:public': boolean | null;
       'client:updatedAt': string;
       'client:clientType:id': number;
       'client:clientType:image': string | null;
@@ -425,13 +450,16 @@ export type Schema = {
       'project:files': string | null;
       'project:id': number;
       'project:image': string | null;
+      'project:images': string | null;
       'project:name': string;
       'project:overview': string | null;
       'project:public': boolean;
       'project:startDate': string | null;
       'project:status': 'Completed' | 'InProgress' | 'Pending' | 'Upcoming';
       'project:updatedAt': string;
+      'assignedTo:company:active': boolean | null;
       'assignedTo:company:address': string | null;
+      'assignedTo:company:animation': string | null;
       'assignedTo:company:clientTypeId': number | null;
       'assignedTo:company:createdAt': string;
       'assignedTo:company:email': string | null;
@@ -439,6 +467,7 @@ export type Schema = {
       'assignedTo:company:image': string | null;
       'assignedTo:company:name': string;
       'assignedTo:company:phone': string | null;
+      'assignedTo:company:public': boolean | null;
       'assignedTo:company:updatedAt': string;
       'assignedTo:employee:createdAt': string;
       'assignedTo:employee:fatherName': string | null;
@@ -449,7 +478,9 @@ export type Schema = {
       'assignedTo:employee:lastName': string;
       'assignedTo:employee:position': string | null;
       'assignedTo:employee:updatedAt': string;
+      'completedBy:company:active': boolean | null;
       'completedBy:company:address': string | null;
+      'completedBy:company:animation': string | null;
       'completedBy:company:clientTypeId': number | null;
       'completedBy:company:createdAt': string;
       'completedBy:company:email': string | null;
@@ -457,6 +488,7 @@ export type Schema = {
       'completedBy:company:image': string | null;
       'completedBy:company:name': string;
       'completedBy:company:phone': string | null;
+      'completedBy:company:public': boolean | null;
       'completedBy:company:updatedAt': string;
       'completedBy:employee:createdAt': string;
       'completedBy:employee:fatherName': string | null;
@@ -467,7 +499,9 @@ export type Schema = {
       'completedBy:employee:lastName': string;
       'completedBy:employee:position': string | null;
       'completedBy:employee:updatedAt': string;
+      'createdBy:company:active': boolean | null;
       'createdBy:company:address': string | null;
+      'createdBy:company:animation': string | null;
       'createdBy:company:clientTypeId': number | null;
       'createdBy:company:createdAt': string;
       'createdBy:company:email': string | null;
@@ -475,6 +509,7 @@ export type Schema = {
       'createdBy:company:image': string | null;
       'createdBy:company:name': string;
       'createdBy:company:phone': string | null;
+      'createdBy:company:public': boolean | null;
       'createdBy:company:updatedAt': string;
       'createdBy:employee:createdAt': string;
       'createdBy:employee:fatherName': string | null;
@@ -485,7 +520,9 @@ export type Schema = {
       'createdBy:employee:lastName': string;
       'createdBy:employee:position': string | null;
       'createdBy:employee:updatedAt': string;
+      'project:client:active': boolean | null;
       'project:client:address': string | null;
+      'project:client:animation': string | null;
       'project:client:clientTypeId': number | null;
       'project:client:createdAt': string;
       'project:client:email': string | null;
@@ -493,6 +530,7 @@ export type Schema = {
       'project:client:image': string | null;
       'project:client:name': string;
       'project:client:phone': string | null;
+      'project:client:public': boolean | null;
       'project:client:updatedAt': string;
       'assignedTo:company:clientType:id': number;
       'assignedTo:company:clientType:image': string | null;
@@ -527,7 +565,9 @@ export type Schema = {
       'employee': Schema['employee']['plain'] & Schema['employee']['nested'];
     };
     flat: {
+      'company:active': boolean | null;
       'company:address': string | null;
+      'company:animation': string | null;
       'company:clientTypeId': number | null;
       'company:createdAt': string;
       'company:email': string | null;
@@ -535,6 +575,7 @@ export type Schema = {
       'company:image': string | null;
       'company:name': string;
       'company:phone': string | null;
+      'company:public': boolean | null;
       'company:updatedAt': string;
       'employee:createdAt': string;
       'employee:fatherName': string | null;

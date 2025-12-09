@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "concurrently \"cd api.vibrandstudio.com && npm run dev\" \"cd web.vibrandstudio.com && npm run dev\" \"cd vibrandstudio.com && npm run dev\"",
+    "dev": "concurrently \"cd api.vibrandstudio.com && npm run start:dev\" \"cd web.vibrandstudio.com && npm run dev\" \"cd vibrandstudio.com && npm run dev\"",
     "api": "cd api.vibrandstudio.com && npm run dev",
     "web": "cd web.vibrandstudio.com && npm run dev",
     "main": "cd vibrandstudio.com && npm run dev"

@@ -1,59 +1,82 @@
+/**
+ * ProjectUsers.tsx
+ * 
+ * Component for displaying and managing project team members.
+ */
+
 import './projectUsers.css';
+import { ErrorNotification } from './ErrorNotification';
+import { getImageUrl } from '../utils/urlUtils';
+import { useProjectUsers } from "../hooks/useProjectUsers";
 
-import { projectService } from "../services/projectService";
-import { useEffect, useState } from 'react';
-
-
+/**
+ * ProjectUsers
+ * 
+ * Displays current project team members and provides interface to add new members.
+ * 
+ * Features:
+ * - Display user avatars and names for current project members
+ * - Show available users with "add" UI for easy addition
+ * - Click to add users to the project
+ * - Error notifications for failed operations
+ * 
+ * Props:
+ * - users: any[] - Current project users
+ * - projectId: number - The project ID
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {any[]} props.users - Array of user objects with id, name, image
+ * @param {number} props.projectId - The project ID
+ * @returns {JSX.Element} The project users display component
+ * 
+ * @example
+ * <ProjectUsers 
+ *   users={project.users} 
+ *   projectId={project.id} 
+ * />
+ */
 function ProjectUsers({ users, projectId }: { users: any[]; projectId: number }) {
-
-    const [currentUsers, setCurrentUsers] = useState<any[]>(users);
-    const [otherUsers, setOtherUsers] = useState<any[]>([]);
-
-    useEffect(() => {
-        const fetchOtherUsers = async () => {
-            const allUsers = await projectService.getUsersForProject(projectId);
-            const projectUserIds = users.map(user => user.id);
-            const filteredUsers = allUsers.filter((user: { id: any; }) => !projectUserIds.includes(user.id));
-            setOtherUsers(filteredUsers);
-        };
-
-        fetchOtherUsers();
-    }, [users]);
-
-    const addUser = (userId: number) => async () => {
-        try {
-            const updatedProject = await projectService.addUserToProject(projectId, userId);
-            console.log('Updated Project:', updatedProject);
-            // Update the users list to include the newly added user
-            const newUser = updatedProject.users.find((user: any) => user.id === userId);
-            if (newUser) {
-                setCurrentUsers([...currentUsers, newUser]);
-                setOtherUsers(otherUsers.filter(user => user.id !== userId));
-            }
-
-        } catch (error) {
-            console.error('Error adding user to project:', error);
-        }
-    }
+    const {
+        currentUsers,
+        otherUsers,
+        addUser,
+        error,
+        setError
+    } = useProjectUsers(users, projectId);
 
     return (
-        <div className="project-users">
-            {currentUsers.map((user) => (
+        <>
+            <ErrorNotification error={error} onClose={() => setError(null)} />
+            <div className="project-users">
+            
+            {currentUsers.map(user => (
                 <div key={user.id} className="project-user">
-                    <img src={`http://localhost:3000/uploads${user.image}`} alt={user.name} />
+                    <img
+                        src={getImageUrl(user.image)}
+                        alt={user.name}
+                    />
                     <span>{user.name}</span>
                 </div>
             ))}
 
-            {otherUsers.map((user) => (
-                <div key={user.id} className="add-user" title='add' onClick={addUser(user.id)}>
-                    <img src={`http://localhost:3000/uploads${user.image}`} alt={user.name} />
-                    <span>{`${user.name}  ➕`}</span>
+            {otherUsers.map(user => (
+                <div
+                    key={user.id}
+                    className="add-user"
+                    title="add"
+                    onClick={() => addUser(user.id)}
+                >
+                    <img
+                        src={getImageUrl(user.image)}
+                        alt={user.name}
+                    />
+                    <span>{`${user.name} ➕`}</span>
                 </div>
             ))}
 
-
         </div>
+        </>
     );
 }
 

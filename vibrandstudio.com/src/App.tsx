@@ -6,6 +6,20 @@ import { About } from "./pages/About";
 import { Footer } from "./components/Footer";
 import { Project } from "./components/Project";
 
+/**
+ * Main application component.
+ *
+ * Sets up routing for the website, including:
+ * - Standard pages (Home, Services, Projects, About, Contact, etc.)
+ * - Project detail modal popup routing
+ * 
+ * Handles "background location" logic to display modals (project details)
+ * over a previous route while keeping the browser history intact.
+ *
+ * @component
+ * @example
+ * <App />
+ */
 function App() {
   const location = useLocation();
   const state = location.state as { backgroundLocation?: Location };
@@ -15,10 +29,16 @@ function App() {
 
   return (
     <>
+      {/* Header visible on all pages */}
       <Header />
 
-      {/* Show background page */}
-      <Routes location={state?.backgroundLocation || (isProjectPage ? { pathname: "/projects" } as Location : location)}>
+      {/* Render main pages, or background page if modal is open */}
+      <Routes
+        location={
+          state?.backgroundLocation ||
+          (isProjectPage ? ({ pathname: "/projects" } as Location) : location)
+        }
+      >
         <Route path="/" element={<Home page="home" />} />
         <Route path="/services" element={<Home page="services" />} />
         <Route path="/express" element={<Home page="express" />} />
@@ -30,13 +50,14 @@ function App() {
         <Route path="/about" element={<About />} />
       </Routes>
 
-      {/* Show popup only when needed */}
+      {/* Render project detail modal if needed */}
       {(state?.backgroundLocation || isProjectPage) && (
         <Routes>
           <Route path="/projects/:id" element={<Project />} />
         </Routes>
       )}
 
+      {/* Footer visible on all pages */}
       <Footer />
     </>
   );

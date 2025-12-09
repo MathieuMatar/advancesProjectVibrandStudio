@@ -34,6 +34,9 @@ model Client {
   users        User[]      // one-to-many
   projects     Project[]   // one-to-many
   image        String?     @default("default.png") @db.VarChar(255)
+  animation    String?     @db.VarChar(255)
+  active       Boolean?
+  public       Boolean?
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 }
@@ -95,6 +98,7 @@ model Project {
   overview    String?     @db.VarChar(800)
   files       String?     @db.VarChar(800)
   image       String?     @default("default.png") @db.VarChar(255)
+  images      Json?
   public      Boolean     @default(false)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt

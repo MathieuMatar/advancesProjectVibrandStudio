@@ -117,6 +117,45 @@ class Storage {
         this._user = null;
         localStorage.removeItem('user');
     }
-}
 
+
+    /**
+     * Stores the latest project ID in `localStorage`.
+     *
+     * @async
+     * @param {number} id - The ID of the latest project to store.
+     * @returns {Promise<void>}
+     * @example
+     * ```ts
+     * await Storage.addLatestProject(123);
+     * ```
+     * @description
+     * This method saves the latest project ID as a string in `localStorage` under the key `latestProject`.
+     * It can be used to quickly access the most recently accessed project.
+     */
+    static async addLatestProject(id: number) {
+        localStorage.setItem('latestProject', id.toString());
+    }
+
+
+    /**
+     * Retrieves the ID of the latest project from `localStorage`.
+     *
+     * @async
+     * @returns {Promise<string | null>} The latest project ID as a string or `null` if not set.
+     *
+     * @example
+     * ```ts
+     * const latestProjectId = await Storage.getLatestProject();
+     * console.log('Latest project ID:', latestProjectId);
+     * ```
+     * @description
+     * This method reads the latest project ID stored in `localStorage` under the key `latestProject`.
+     * It can be used to quickly access the most recently accessed project.
+     */
+
+    static async getLatestProject() {
+        return localStorage.getItem('latestProject');
+    }
+}
 export default Storage;

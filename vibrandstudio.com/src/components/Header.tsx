@@ -19,7 +19,7 @@ function Header() {
         <header className={scrolled ? 'header-active' : 'header-top'}>
             <Link to="/" style={{ all: 'unset', cursor: 'pointer' }}>
                 <Logo className="logo" />
-                <HomeLogo stroke="var(--coral)" className="home" style={{ marginLeft: '10px', marginRight: '5px' }} width="25" />
+                <HomeLogo stroke="var(--coral)" className="home" style={{ margin: '6px 5px 0 10px' }} width="25" />
             </Link>
             <nav>
                 <Link to="/services">Services</Link>

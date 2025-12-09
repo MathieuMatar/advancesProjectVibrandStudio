@@ -3,6 +3,9 @@ import { MilestonesResolver } from './milestones.resolver';
 import { MilestonesService } from './milestones.service';
 import { PrismaModule } from '../prisma/prisma.module';
 
+/**
+ * Provides milestone resolvers and service.
+ */
 @Module({
   imports: [PrismaModule],
   providers: [MilestonesResolver, MilestonesService],

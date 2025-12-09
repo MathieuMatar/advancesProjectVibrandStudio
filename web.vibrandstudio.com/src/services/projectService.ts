@@ -7,7 +7,7 @@ class ProjectService {
      * @returns array of projects with { id, code, name, client }
      */
     async getAllProjects() {
-        const query = `query { projects { id code name client { id name } } }`;
+        const query = `query { projects { id code name client { id name image } } }`;
         const data = await request(query);
         return data.projects;
     }
@@ -31,6 +31,7 @@ class ProjectService {
                     status
                     overview
                     files
+                    public
                     client {
                         id
                         name
@@ -60,6 +61,10 @@ class ProjectService {
                         visibility
                         createdAt
                         updatedAt
+                    }
+                    services { 
+                        id 
+                        name 
                     }
                 }
             }
@@ -131,6 +136,12 @@ class ProjectService {
         return data.users;
     }
 
+    async getServicesForProject() {
+        const query = `query { services { id name } }`;
+        const data = await request(query);
+        return data.services;
+    }
+
     /**
      * Update a project.
      *
@@ -150,6 +161,7 @@ class ProjectService {
                     status
                     overview
                     files
+                    public
                     client {
                         id
                         name
@@ -166,6 +178,7 @@ class ProjectService {
                         dueDate
                         status
                     }
+                    services { id name }
                     tasks {
                         id
                         projectId
@@ -182,6 +195,33 @@ class ProjectService {
                     } } }`;
         const data = await request(query, variables);
         return data.update;
+    }
+
+    /**
+     * 
+     * @param data 
+     * @returns created project id
+     */
+
+    async createProject(data: any) {
+        const variables = {
+            input: data,
+        };
+        const query = `mutation CreateProject($input: CreateProjectInput!) { createProject(input: $input) { id } }`;
+        const result = await request(query, variables);
+        return result.createProject;
+    }
+
+
+    /**
+     * 
+     * @returns all clients
+     * used in the form to create a Project
+     */
+    async getAllClients() {
+        const query = `query { clients { id name } }`;
+        const data = await request(query);
+        return data.clients;
     }
 }
 

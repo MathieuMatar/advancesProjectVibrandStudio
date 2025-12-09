@@ -1,20 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './projects.css';
-import useProjects from '../hooks/useProjects';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { fetchProjects } from '../store/projectSlice';
+import type { RootState, AppDispatch } from '../store/store';
 
 type ProjectsProps = {
     active?: boolean;
 };
 
 function Projects({ active = false }: ProjectsProps) {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { projects } = useProjects();
+    const dispatch = useDispatch<AppDispatch>();
+    const { projects, loading } = useSelector((state: RootState) => state.projects);
     const [offset, setOffset] = useState(0);
     const [transitioning, setTransitioning] = useState(false);
     const totalItemWidth = 460;
     const max = totalItemWidth * projects.length;
+
+    useEffect(() => {
+        dispatch(fetchProjects());
+    }, [dispatch]);
 
     const repeatedItems = [];
     if (active) {

@@ -1,15 +1,22 @@
 import './clients.css';
 import { useEffect, useRef } from 'react';
-import useClients from '../hooks/useClients';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchClients } from '../store/clientSlice';
+import type { RootState, AppDispatch } from '../store/store';
 
 type ClientsProps = {
     active?: boolean;
 };
 
 function Clients({ active }: ClientsProps) {
-    const { clients } = useClients();
+    const dispatch = useDispatch<AppDispatch>();
+    const { clients, loading } = useSelector((state: RootState) => state.clients);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
     const playedRef = useRef<boolean[]>([]); // track which videos have played
+
+    useEffect(() => {
+        dispatch(fetchClients());
+    }, [dispatch]);
 
     useEffect(() => {
         // Initialize playedRef array
@@ -46,7 +53,7 @@ function Clients({ active }: ClientsProps) {
             {clients.map((item) => (
                 <video
                     key={item.id}
-                    src={`http://localhost:3000/uploads${item.image}`}
+                    src={`http://localhost:3000/uploads${item.animation}`}
                     title={item.name}
                     muted
                     ref={(el) => { videoRefs.current[item.id] = el; }}

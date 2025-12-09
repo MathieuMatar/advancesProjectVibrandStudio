@@ -18,8 +18,8 @@ header.header-top nav {
 }
 
 header.header-top svg.logo {
-    width: 100px;
-    height: 38px;
+    width: 150px;
+    height: auto;
     object-fit: cover;
     object-position: 0 -10px;
     fill: var(--white);

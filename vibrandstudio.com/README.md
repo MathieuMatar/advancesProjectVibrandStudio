@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# Vibrand Studio - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern portfolio website built with React, Redux, and Vite.
 
-Currently, two official plugins are available:
+## 📋 Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. [Overview](#overview)
+2. [Tech Stack](#tech-stack)
+3. [Project Structure](#project-structure)
+4. [Getting Started](#getting-started)
+5. [State Management](#state-management)
+6. [SVG Components](#svg-components)
+7. [Scripts](#scripts)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎯 Overview
 
-## Expanding the ESLint configuration
+Professional portfolio website showcasing projects, client testimonials, and contact system with global state management using Redux.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠 Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Core:**
+- React 19.1.1
+- React Router 7.9.3
+- Redux 5.0.1 + Redux Toolkit 2.11.0
+- React Redux 9.2.0
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Build & Dev:**
+- Vite 7.1.14 (Rolldown)
+- TypeScript 5.9.3
+- ESLint 9.36.0
+
+**HTTP & Data:**
+- Axios 1.12.2
+- GraphQL (via Axios)
+
+**Plugins:**
+- vite-plugin-svgr (SVG as React components)
+- @vitejs/plugin-react (Fast Refresh)
+
+## 📁 Project Structure
+
+```
+vibrandstudio.com/
+├── src/
+│   ├── main.tsx              # React entry point
+│   ├── App.tsx               # Root component with routing
+│   ├── index.css             # Global styles
+│   ├── svg.d.ts              # SVG type definitions
+│   ├── components/           # Reusable components
+│   ├── pages/                # Page components
+│   ├── store/                # Redux store (clientSlice, projectSlice, store.ts)
+│   ├── services/             # API services
+│   ├── hooks/                # Custom React hooks
+│   ├── utils/                # Utilities (request.ts for GraphQL)
+│   ├── types/                # TypeScript types
+│   ├── svg/                  # SVG files (used as React components)
+│   └── assets/               # Static assets
+├── public/                   # Static files
+├── dist/                     # Build output
+├── vite.config.ts            # Vite config with plugins
+├── tsconfig.json             # TypeScript config
+├── eslint.config.js          # ESLint config
+├── package.json              # Dependencies
+└── index.html                # HTML entry
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install        # Install dependencies
+npm run dev        # Start dev server
+npm run build      # Build for production
+npm run lint       # Check code quality
+npm run preview    # Preview production build
+npm run push       # Push built files to git
 ```

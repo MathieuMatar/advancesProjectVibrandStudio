@@ -1,0 +1,19 @@
+.project-services {
+    padding: 20px;
+
+    span {
+        display: inline-block;
+        margin: 5px;
+        padding: 4px 8px;
+        font-size: 18px;
+        background-color: var(--coral);
+        border-radius: 15px;
+    }
+
+    select {
+        margin-bottom: 15px;
+        padding: 8px;
+        border-radius: 15px;
+        border: 1px solid var(--coral);
+    }
+}

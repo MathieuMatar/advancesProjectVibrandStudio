@@ -22,6 +22,9 @@
   padding-left: 0;
   margin: 0;
   height: 100vh;
+  background-image: url(https://depositphotos-blog.s3.eu-west-1.amazonaws.com/uploads/2017/07/Soothing-nature-backgrounds-2.webp);
+  background-size: cover;
+  background-position: center;
 }
 
 .parent {

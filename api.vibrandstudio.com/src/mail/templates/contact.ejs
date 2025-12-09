@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if mso]>
+    <style type="text/css">
+        table {border-collapse: collapse; border-spacing: 0; margin: 0;}
+        div, td {padding: 0;}
+        div {margin: 0 !important;}
+    </style><
+    <![endif]-->
+</head>
+
+<body style="margin: 0; padding: 0; font-family: 'Montserrat', Arial, sans-serif; background-color: #f4f4f4;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 0; padding: 0; background-color: #f4f4f4;">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                
+                <!-- Email Container -->
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; width: 100%; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="background-color: #1a1a1a; padding: 40px 20px;">
+                            <img src="https://api.vibrandstudio.com/uploads/mail/icon.png" alt="Vibrand Studio Logo" width="180" style="width: 180px; max-width: 100%; height: auto; display: block; margin: 0 auto;" />
+                        </td>
+                    </tr>
+                    
+                    <!-- Main Content -->
+                    <tr>
+                        <td align="center" style="padding: 50px 40px; background-color: #ffffff;">
+                            
+                            <!-- Icon Image -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 30px;">
+                                        <img src="https://api.vibrandstudio.com/uploads/mail/image.png" alt="Confirmation Icon" width="200" style="width: 200px; max-width: 80%; height: auto; display: block; margin: 0 auto;" />
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Subheading -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="color: #f05a2b; font-size: 14px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; font-weight: 600; padding-bottom: 15px;">
+                                        MESSAGE RECEIVED
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Divider -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding: 20px 0;">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="width: 60px; height: 4px; background-color: #f05a2b; border-radius: 2px;"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Main Heading -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="color: #000000; font-size: 42px; font-weight: 700; padding-bottom: 20px; line-height: 1.2;">
+                                        Thank You, <%= input.name %>!
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Paragraph Text -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="color: #666666; font-size: 16px; line-height: 1.8; padding-bottom: 15px;">
+                                        We've received your message and our team will review it shortly.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="color: #666666; font-size: 16px; line-height: 1.8; padding-bottom: 30px;">
+                                        We typically respond within 24-48 hours during business days.
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Message Summary Box -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td style="background-color: #f9f9f9; border-left: 4px solid #f05a2b; padding: 30px; border-radius: 8px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="color: #000000; font-size: 18px; font-weight: 600; padding-bottom: 20px;">
+                                                    Your Message Summary
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 12px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td style="color: #999999; font-size: 14px; padding-bottom: 5px; width: 120px;">
+                                                                Name:
+                                                            </td>
+                                                            <td style="color: #333333; font-size: 14px; padding-bottom: 5px;">
+                                                                <%= input.name %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="color: #999999; font-size: 14px; padding-bottom: 5px;">
+                                                                Company:
+                                                            </td>
+                                                            <td style="color: #333333; font-size: 14px; padding-bottom: 5px;">
+                                                                <%= input.company %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="color: #999999; font-size: 14px; padding-bottom: 5px;">
+                                                                Email:
+                                                            </td>
+                                                            <td style="color: #333333; font-size: 14px; padding-bottom: 5px;">
+                                                                <%= input.email %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="color: #999999; font-size: 14px; padding-bottom: 5px;">
+                                                                Phone:
+                                                            </td>
+                                                            <td style="color: #333333; font-size: 14px; padding-bottom: 5px;">
+                                                                <%= input.phone %>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-top: 15px; padding-bottom: 10px;">
+                                                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td style="height: 1px; background-color: #e0e0e0;"></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #999999; font-size: 14px; padding-bottom: 10px;">
+                                                    Your Message:
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #333333; font-size: 14px; line-height: 1.6; padding: 15px; background-color: #ffffff; border-radius: 6px;">
+                                                    <%= input.message %>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Additional Info -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="color: #999999; font-size: 14px; line-height: 1.6; padding-top: 30px;">
+                                        In the meantime, feel free to explore our website or follow us on social media.
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    
+                    <!-- Address Bar -->
+                    <tr>
+                        <td align="center" style="background-color: #000000; color: #ffffff; padding: 20px; font-size: 14px; letter-spacing: 0.5px;">
+                            123 Vibrand St, Creativity City, Imagination Country
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="background-color: #000000; padding: 40px 20px;">
+                            
+                            <!-- Legal Links -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 25px;">
+                                        <a href="https://vibrandstudio.com/privacypolicy" style="color: #f05a2b; text-decoration: none; font-size: 14px; padding: 0 10px; display: inline-block;">Privacy Policy</a>
+                                        <span style="color: #f05a2b; padding: 0 5px;">|</span>
+                                        <a href="https://vibrandstudio.com/termsconditions" style="color: #f05a2b; text-decoration: none; font-size: 14px; padding: 0 10px; display: inline-block;">Terms & Conditions</a>
+                                        <span style="color: #f05a2b; padding: 0 5px;">|</span>
+                                        <a href="https://vibrandstudio.com/copyrighttext" style="color: #f05a2b; text-decoration: none; font-size: 14px; padding: 0 10px; display: inline-block;">Copyright</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Social Icons -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+                                <tr>
+                                    <td align="center">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <!-- Facebook -->
+                                                <td style="padding: 0 7px;">
+                                                    <a href="https://www.facebook.com/VIBRANDSTUDIOS.LB/" target="_blank" style="display: inline-block; width: 45px; height: 45px; background-color: #f05a2b; border-radius: 50%; text-align: center; line-height: 45px;">
+                                                        <img src="https://api.vibrandstudio.com/uploads/mail/face.png" alt="Facebook" width="24" height="24" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;" />
+                                                    </a>
+                                                </td>
+                                                <!-- Instagram -->
+                                                <td style="padding: 0 7px;">
+                                                    <a href="https://www.instagram.com/vibrandstudio.lb/" target="_blank" style="display: inline-block; width: 45px; height: 45px; background-color: #f05a2b; border-radius: 50%; text-align: center; line-height: 45px;">
+                                                        <img src="https://api.vibrandstudio.com/uploads/mail/insta.png" alt="Instagram" width="24" height="24" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;" />
+                                                    </a>
+                                                </td>
+                                                <!-- Email -->
+                                                <td style="padding: 0 7px;">
+                                                    <a href="mailto:VibrandStudio@gmail.com" target="_blank" style="display: inline-block; width: 45px; height: 45px; background-color: #f05a2b; border-radius: 50%; text-align: center; line-height: 45px;">
+                                                        <img src="https://api.vibrandstudio.com/uploads/mail/mail.png" alt="Email" width="24" height="24" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;" />
+                                                    </a>
+                                                </td>
+                                                <!-- LinkedIn -->
+                                                <td style="padding: 0 7px;">
+                                                    <a href="https://lb.linkedin.com/in/martine-boutros-91009563" target="_blank" style="display: inline-block; width: 45px; height: 45px; background-color: #f05a2b; border-radius: 50%; text-align: center; line-height: 45px;">
+                                                        <img src="https://api.vibrandstudio.com/uploads/mail/in.png" alt="LinkedIn" width="24" height="24" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;" />
+                                                    </a>
+                                                </td>
+                                                <!-- Phone -->
+                                                <td style="padding: 0 7px;">
+                                                    <a href="#" target="_blank" style="display: inline-block; width: 45px; height: 45px; background-color: #f05a2b; border-radius: 50%; text-align: center; line-height: 45px;">
+                                                        <img src="https://api.vibrandstudio.com/uploads/mail/phone.png" alt="Phone" width="24" height="24" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle;" />
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </td>
+                    </tr>
+                    
+                </table>
+                
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

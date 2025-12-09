@@ -3,6 +3,8 @@ import { TasksService } from './tasks.service';
 import { Task } from './models/task.model';
 import { CreateTaskDTO } from './dto/CreateTaskDTO';
 import { UpdateTaskDTO } from './dto/UpdateTaskDTO';
+import { Access } from '../auth/access.decorator';
+import { Public } from '../auth/public.decorator';
 
 /**
  * GraphQL Resolver for Task entity.
@@ -21,6 +23,7 @@ export class TasksResolver {
    * @param ctx - GraphQL context containing request and user information.
    * @returns An array of all Task objects.
    */
+  @Access(1)
   @Query(() => [Task], { name: 'tasks' })
   findAll(@Context() ctx: any) {
     const user = ctx.req?.user;

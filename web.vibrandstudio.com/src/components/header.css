@@ -1,5 +1,8 @@
 header {
-    background-color: var(--coral);
+    box-shadow: inset 0px 2px 1px 0 #DB5349, inset -1px -1px 1px 1px #DB5349;
+    background: #db53497a;
+    isolation: isolate;
+    backdrop-filter: blur(3px);
     border-radius: 0 25px 25px 0;
 
     color: white;
@@ -30,7 +33,6 @@ header {
         span {
             width: 35px;
             height: 35px;
-            background-image: url(/user.png);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -57,6 +59,7 @@ header {
                 height: 30px;
                 border-radius: 5px;
                 margin-right: 10px;
+                object-fit: contain;
             }
 
             span {

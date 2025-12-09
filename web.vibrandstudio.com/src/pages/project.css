@@ -8,10 +8,13 @@ main {
     grid-row-gap: 15px;
 
     >* {
-        background-color: #fbfaf6ab;
         border-radius: 35px;
         overflow: hidden;
-
+        inset: 0;
+        box-shadow: inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5);
+        background: #ffffff8a;
+        isolation: isolate;
+        backdrop-filter: blur(3px);
     }
 
     .tasks-container {

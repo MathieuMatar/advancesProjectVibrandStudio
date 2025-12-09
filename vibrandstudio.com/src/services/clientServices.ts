@@ -1,31 +1,36 @@
+import request from "../utils/request";
+
 export type Client = {
     id: number;
     name: string;
     image: string;
+    animation: string;
 };
 
+/**
+ * Service class for performing operations related to Clients.
+ *
+ * Provides an abstraction layer for fetching client data
+ * from a GraphQL API using the shared `request` utility.
+ */
 class ClientServices {
-    static async getAll(): Promise<Client[]> {
-        const response = await fetch('http://localhost:3000/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: `
-        query {
-          clients {
-            id
-            name
-            image
-          }
-        }
-      `,
-            }),
-        });
 
-        const result = await response.json();
-        return result.data.clients;
+    /**
+     * Fetches all clients from the GraphQL API.
+     *
+     * @async
+     * @returns {Promise<Client[]>} A list of client objects.
+     *
+     * @example
+     * ```ts
+     * const clients = await ClientServices.getAll();
+     * console.log(clients);
+     * ```
+     */
+    static async getAll() {
+        const query = `query { clients { id name image animation } }`;
+        const data = await request(query);
+        return data.clients as Client[];
     }
 }
 

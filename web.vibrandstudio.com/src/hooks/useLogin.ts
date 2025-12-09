@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import LoginService from '../services/loginService';
 import Storage from '../utils/storage';
+import { setTokenExpiredCallback } from '../utils/request';
 
 /**
  * User shape returned by authentication.
@@ -50,22 +51,22 @@ export const useLogin = () => {
     const isAuth = !!user;
 
     // Login function
-    const login = useCallback(async (email: string, password: string) => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            const loginData: LoginData = await LoginService.login(email, password);
-            setUser(loginData.user);
-            return loginData.user;
-        } catch (err: any) {
-            console.error('Login error:', err);
-            setError(err.message || 'Login failed');
-            throw err;
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+        const login = useCallback(async (email: string, password: string) => {
+            setLoading(true);
+            setError(null);
+            try {
+                const loginData: LoginData = await LoginService.login(email, password);
+                setUser(loginData.user);
+                return loginData.user;
+            } catch (err: any) {
+                let message = 'Login failed';
+                if (err?.message) message += `: ${err.message}`;
+                setError(message);
+                throw err;
+            } finally {
+                setLoading(false);
+            }
+        }, []);
 
     // Logout function
     const logout = useCallback(async () => {
@@ -84,7 +85,12 @@ export const useLogin = () => {
             }
         };
         loadUser();
+        
+        // Register callback for token expiration
+        setTokenExpiredCallback(() => {
+            setUser(null);
+        });
     }, []);
 
-    return { user, isAuth, login, logout, loading, error };
+        return { user, isAuth, login, logout, loading, error, setError };
 };

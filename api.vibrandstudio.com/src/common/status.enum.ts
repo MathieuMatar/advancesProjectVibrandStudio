@@ -1,5 +1,8 @@
 import { registerEnumType } from '@nestjs/graphql';
 
+/**
+ * Shared status values used across projects, milestones, and tasks.
+ */
 export enum Status {
   Upcoming = 'Upcoming',
   Pending = 'Pending',

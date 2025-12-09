@@ -30,6 +30,7 @@ import { taskService } from '../services/taskService';
  */
 export function useTask(task: any, setTask: (newTask: any) => void, id: number) {
     const [isFocused, setIsFocused] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const ref = useRef(task);
 
     const handleFocusIn = () => {
@@ -45,20 +46,33 @@ export function useTask(task: any, setTask: (newTask: any) => void, id: number) 
                 for (const key in task) {
                     if (ref.current[key] !== task[key]) changedFields[key] = task[key];
                 }
-                taskService.updateTask(id, changedFields).catch(() => alert('Error updating task'));
+                taskService.updateTask(id, changedFields).catch((err: any) => {
+                    let message = 'Error updating task';
+                    if (err?.message) message += `: ${err.message}`;
+                    setError(message);
+                });
             }
         }
     };
 
     const toggleImportant = async () => {
-        await taskService.updateTask(id, { important: !task.important });
-        setTask({ ...task, important: !task.important });
+        setError(null);
+        try {
+            await taskService.updateTask(id, { important: !task.important });
+            setTask({ ...task, important: !task.important });
+        } catch (err: any) {
+            let message = 'Error updating important flag';
+            if (err?.message) message += `: ${err.message}`;
+            setError(message);
+        }
     };
 
     return {
         isFocused,
         handleFocusIn,
         handleFocusOut,
-        toggleImportant
+        toggleImportant,
+        error,
+        setError,
     };
 }

@@ -1,103 +1,484 @@
 # Vibrand Studio
 
-This repository contains the API (NestJS + Prisma + GraphQL), two frontends (Vite + React) and supporting configuration for Vibrand Studio.
+This repository contains a complete full-stack application with NestJS GraphQL API, two React frontends, and supporting infrastructure for Vibrand Studio project management platform.
 
-## Quick overview
+## Quick Overview
 
-- Backend: `api.vibrandstudio.com` — NestJS, GraphQL, Prisma (DB models), Forest Admin integration.
-- Public website: `vibrandstudio.com` — React + Vite, SVGs imported as React components via SVGR.
-- Web app: `web.vibrandstudio.com` — another React app (client-facing) using React Router.
+- **Backend**: `api.vibrandstudio.com` — NestJS GraphQL API with Prisma ORM, PostgreSQL database, Socket.IO for real-time updates, JWT authentication, REST upload endpoint, and Forest Admin integration
+- **Public Website**: `vibrandstudio.com` — React portfolio website with Redux state management, SVG components via SVGR, and GraphQL integration showcasing projects and client testimonials
+- **Web Application**: `web.vibrandstudio.com` — Full-featured project management PWA with offline support, real-time task updates via Socket.IO, IndexedDB caching, and service worker for offline-first functionality
 
-JWT authentication is used for the API and the frontends. Roles are not yet implemented (phase 2). Forest Admin is used to provide an admin dashboard and full data access for now.
+## Key Features Across the Platform
 
-Entries / entities used by the backend are described in `api.vibrandstudio.com/API.md`.
+### Backend (api.vibrandstudio.com)
+- GraphQL API with code-first schema generation
+- JWT authentication with access level control via custom decorators (`@Public()`, `@Access()`)
+- Real-time task updates via Socket.IO gateway
+- Nodemailer integration with EJS templates for contact forms and newsletters
+- REST file upload endpoint with Multer (200MB max, stored in `/uploads`)
+- Forest Admin mounted for back-office management
+- PostgreSQL database with Prisma ORM
+
+### Frontend - Portfolio (vibrandstudio.com)
+- Redux Toolkit for global state management (clients, projects)
+- GraphQL integration via Axios
+- SVG components loaded via vite-plugin-svgr
+- React Router for navigation
+- Optimized build with Vite + Rolldown
+
+### Frontend - Web App (web.vibrandstudio.com)
+- **Progressive Web App (PWA)** - Installable with offline support
+- **Real-time Collaboration** - Socket.IO integration for live task updates
+- **Offline-First** - IndexedDB for query caching and mutation queuing with automatic sync
+- **Service Worker** - Workbox-powered caching strategies
+- **Comprehensive Features**: Project management, task tracking with drag-and-drop reordering, milestone timeline, team member management, and service association
 
 ## Prerequisites
 
-- Node.js and npm installed (recommended: latest LTS).
-- A database server — the backend uses Prisma and `mysql2` is listed, so create a MySQL-compatible database before running the API.
-- (Optional) Forest Admin account/setup if you want to use the admin dashboard.
+- **Node.js** 16+ and npm (recommended: latest LTS)
+- **PostgreSQL** database server (backend uses Prisma ORM with PostgreSQL)
+- **(Optional)** Forest Admin account for admin dashboard
 
-Before starting anything, make sure to:
+### Environment Setup
 
-1. Create the database (MySQL) and note the connection URL.
-2. Edit the API `.env` file (create one if it doesn't exist) inside `api.vibrandstudio.com` and set the database connection string (commonly `DATABASE_URL` or the key used by your Prisma config). Adjust the value of the link/connection string accordingly.
+Before starting, configure the backend environment:
 
-## Install dependencies
+1. **Create a PostgreSQL database** and note the connection URL
+2. **Create `.env` file** in `api.vibrandstudio.com` with required variables:
+   ```env
+   DATABASE_URL="postgresql://user:password@localhost:5432/vibrand_db"
+   JWT_SECRET="your-secret-key"
+   MAIL_HOST="smtp.example.com"
+   MAIL_PORT="587"
+   MAIL_USER="your-email@example.com"
+   MAIL_PASS="your-password"
+   FOREST_AUTH_SECRET="forest-secret"
+   FOREST_ENV_SECRET="forest-env-secret"
+   ```
+3. **(Optional)** Configure frontend API URLs in:
+   - `vibrandstudio.com/src/utils/request.ts`
+   - `web.vibrandstudio.com/src/utils/urlUtils.ts` (default: `http://localhost:3000`)
 
-Run `npm install` in the root and in each package folder. On Windows PowerShell you can run:
+## Installation
+
+Run `npm install` in the root and in each package folder. On Windows PowerShell:
 
 ```powershell
-# from project root
+# Install root dependencies
 npm install
 
-# install each package
+# Install each package
 cd api.vibrandstudio.com; npm install; cd ..
 cd vibrandstudio.com; npm install; cd ..
 cd web.vibrandstudio.com; npm install; cd ..
 ```
 
-All three subprojects must have dependencies installed before running the monorepo concurrently.
+### Backend Setup (api.vibrandstudio.com)
 
-## Available npm scripts (what they do)
-
-Root package.json (project root)
-
-- `dev` — Run all three services concurrently:
-  - Starts `api.vibrandstudio.com` dev server, `web.vibrandstudio.com` dev server, and `vibrandstudio.com` dev server in parallel using `concurrently`.
-- `api` — Run only the API dev server (same as `cd api.vibrandstudio.com && npm run dev`).
-- `web` — Run only `web.vibrandstudio.com` dev server.
-- `main` — Run only `vibrandstudio.com` dev server.
-
-api.vibrandstudio.com (backend - key scripts)
-
-- `dev` / `start:dev` — `nest start --watch` — start the NestJS server in watch mode.
-- `start` / `start:prod` — start the built server (`node dist/main`).
-- `build` — compile the project (`nest build`).
-- `prisma:generate` — run `prisma generate` (client generation).
-- `prisma:dbpush` — push Prisma schema to the database (useful for development).
-- `prisma:migrate:dev` — run migrations in development.
-- `test`, `lint`, `format` — test and lint utilities.
-
-Notes: Prisma schema is at `api.vibrandstudio.com/prisma/schema.prisma`. Ensure `DATABASE_URL` in the API `.env` points to the DB you created.
-
-vibrandstudio.com (frontend - key scripts)
-
-- `dev` — `vite` development server.
-- `build` — build the production bundle (`tsc -b && vite build`).
-- `preview` — preview a built site.
-- `lint` — run ESLint.
-
-web.vibrandstudio.com (second frontend)
-
-- Similar scripts (uses Vite + React). Use `npm run dev` inside that folder.
-
-## How to run
-
-Run everything together (recommended for development):
+After installing dependencies, initialize the database:
 
 ```powershell
-# from project root
+cd api.vibrandstudio.com
+npx prisma generate          # Generate Prisma client
+npx prisma db push           # Push schema to database (development)
+# OR for production migrations:
+npx prisma migrate dev --name init
+cd ..
+```
+
+All three subprojects must have dependencies installed before running the monorepo concurrently.
+
+## Available npm Scripts
+
+### Root Package Scripts
+
+- **`npm run dev`** — Run all three services concurrently (API + both frontends) using `concurrently`
+- **`npm run api`** — Run only the API dev server
+- **`npm run web`** — Run only `web.vibrandstudio.com` dev server
+- **`npm run main`** — Run only `vibrandstudio.com` dev server
+
+### API Scripts (api.vibrandstudio.com)
+
+**Development:**
+- `npm run start:dev` — Start NestJS in watch mode (`nest start --watch`)
+- `npm run start:prod` — Start production server (`node dist/main`)
+- `npm run build` — Build the project (`nest build`)
+
+**Prisma:**
+- `npx prisma generate` — Generate Prisma client
+- `npx prisma db push` — Sync schema to database (non-migration, for dev)
+- `npx prisma migrate dev --name <change>` — Create and apply migration
+- `npx prisma migrate deploy` — Apply migrations (production)
+- `npx prisma studio` — Open Prisma Studio for database browsing
+
+**Testing & Quality:**
+- `npm run test` — Run unit tests
+- `npm run lint` — Run ESLint
+- `npm run format` — Format code
+
+**Note:** Prisma schema is located at `api.vibrandstudio.com/prisma/schema.prisma`. GraphQL schema is auto-generated at `src/schema.gql`.
+
+### Frontend Scripts (vibrandstudio.com)
+
+- `npm run dev` — Start Vite dev server
+- `npm run build` — Build for production (`tsc -b && vite build`)
+- `npm run preview` — Preview production build
+- `npm run lint` — Run ESLint
+- `npm run push` — Push built files to git
+
+### Web App Scripts (web.vibrandstudio.com)
+
+- `npm run dev` — Start Vite dev server with HMR
+- `npm run build` — Build production bundle with PWA support
+- `npm run preview` — Preview production build locally
+- `npm run lint` — Run ESLint
+- `npm run lint -- --fix` — Auto-fix linting issues
+
+## How to Run
+
+### Run Everything Together (Recommended for Development)
+
+```powershell
+# From project root
 npm run dev
 ```
 
-This will start the API, and both frontends concurrently.
+This starts the API, portfolio site, and web app concurrently. Access points:
+- **API**: `http://localhost:3000` (GraphQL endpoint: `/graphql`)
+- **Portfolio**: `http://localhost:5173` (or next available port)
+- **Web App**: `http://localhost:5174` (or next available port)
 
-Run a single service from the root (examples):
+### Run Individual Services
+
+Run a single service from the root:
 
 ```powershell
-npm run api   # run only the API dev server
-npm run web   # run only 'web.vibrandstudio.com'
-npm run main  # run only 'vibrandstudio.com'
+npm run api   # API only
+npm run web   # Web app only
+npm run main  # Portfolio only
 ```
 
-Or run in each folder directly (useful when working on one service):
+Or run directly in each folder:
 
 ```powershell
-cd api.vibrandstudio.com; npm run dev
+cd api.vibrandstudio.com; npm run start:dev
 cd vibrandstudio.com; npm run dev
 cd web.vibrandstudio.com; npm run dev
 ```
+
+## Architecture & Technical Details
+
+### Backend Architecture (api.vibrandstudio.com)
+
+**Technology Stack:**
+- NestJS with GraphQL (Apollo driver, code-first schema)
+- Prisma ORM with PostgreSQL
+- Passport JWT strategy for authentication
+- Socket.IO for real-time updates
+- Multer for file uploads (disk storage, served from `/uploads`)
+- Nodemailer with EJS templates for email
+- Forest Admin agent for back-office management
+
+**Authentication & Authorization:**
+- Global `GqlAuthGuard` (JWT validation) + `AccessGuard` (access level enforcement)
+- `@Public()` decorator to bypass auth for specific resolvers
+- `@Access(level: number)` decorator to enforce minimum access level
+- JWT tokens stored client-side, included in all authenticated requests
+
+**GraphQL API Entities:**
+- **Auth**: `login`, `signup`, `changePassword` → returns `AuthResponse { token, user }`
+- **Users**: CRUD operations with access level control
+- **Services**: Business services with rate and duration tracking
+- **Clients**: Client management with types, images, and public/active flags
+- **ClientTypes**: Categorization for clients
+- **Employees**: Employee profiles linked to users
+- **Projects**: Full project management with services, users, milestones, and tasks
+- **Milestones**: Project milestones with dates and status
+- **Tasks**: Task management with real-time Socket.IO updates (`taskUpdated`, `taskDeleted` events)
+- **Mail**: Public mutations for newsletter signup and contact form
+
+**File Upload (REST):**
+- Endpoint: `POST /upload` (public)
+- Max size: 200MB
+- Returns: `{ path: "/uploads/<filename>" }`
+- Files served statically from `/uploads`
+
+**Real-time Updates:**
+- `TaskGateway` broadcasts via Socket.IO
+- Events: `taskUpdated` (full task payload), `taskDeleted` (task ID)
+- CORS: Open (`origin: *`)
+
+### Frontend - Portfolio (vibrandstudio.com)
+
+**Technology Stack:**
+- React 19.1.1 + React Router 7.9.3
+- Redux 5.0.1 + Redux Toolkit 2.11.0
+- Vite 7.1.14 with Rolldown
+- TypeScript 5.9.3
+- Axios for HTTP/GraphQL requests
+- vite-plugin-svgr for SVG-as-components
+
+**State Management:**
+- Redux store with slices: `clientSlice`, `projectSlice`
+- Actions for fetching and managing clients and projects
+- Centralized state for portfolio data
+
+**Key Features:**
+- Portfolio showcase with project galleries
+- Client testimonials and case studies
+- Contact form integration with backend
+- Newsletter signup
+- Responsive design
+- SVG assets imported as React components
+
+**Build Output:**
+- Optimized production bundle in `dist/`
+- Static assets for CDN deployment
+
+### Frontend - Web App (web.vibrandstudio.com)
+
+**Technology Stack:**
+- React 18+ with TypeScript
+- Vite build tool + dev server
+- Socket.IO Client for real-time updates
+- IndexedDB (via `idb`) for offline storage
+- Vite PWA Plugin + Workbox for service workers
+- CSS3 for styling
+
+**Progressive Web App Features:**
+- **Installable**: Manifest file for add-to-homescreen
+- **Offline-First**: Service worker with Workbox caching strategies
+- **Background Sync**: Queued mutations sync when connection restores
+- **App Shell**: Cached core UI for instant offline loading
+
+**Real-time Features:**
+- Socket.IO connection to backend
+- Live task updates broadcast to all connected clients
+- Automatic UI updates without page refresh
+- Event filtering by project ID
+
+**Offline Support:**
+- **Query Caching**: GraphQL query results cached in IndexedDB
+- **Mutation Queue**: Failed/offline mutations queued for later
+- **Auto-Sync**: Queued mutations automatically retry when online
+- **Offline Indicator**: UI feedback for connection status
+
+**Project Management Features:**
+- Create, edit, and view projects
+- Task management with drag-and-drop reordering
+- Mark tasks as complete with completion tracking
+- Assign tasks to team members
+- Track milestones with due dates
+- Associate services/tools with projects
+- Team member management
+- File upload for project assets
+
+**Utilities & Services:**
+- `request.ts`: GraphQL client with offline queue and cache
+- `urlUtils.ts`: Centralized URL configuration
+- `storage.ts`: localStorage wrapper for auth persistence
+- `dateUtils.ts`: Date formatting and validation
+- `upload.ts`: File upload handler
+- `offline-db.ts`: IndexedDB management for offline data
+
+## API Examples
+
+### Authentication
+
+```graphql
+# Login
+mutation Login($input: LoginInput!) {
+  login(input: $input) {
+    token
+    user { id name email accessLevel }
+  }
+}
+```
+```json
+{
+  "input": {
+    "email": "user@example.com",
+    "password": "SecurePass123"
+  }
+}
+```
+
+### Project Management
+
+```graphql
+# Get all projects
+query {
+  projects {
+    id name code status public
+    client { id name }
+    milestones { id name status dueDate }
+    tasks { id title important completedById }
+  }
+}
+```
+
+```graphql
+# Create project
+mutation CreateProject($input: CreateProjectInput!) {
+  createProject(input: $input) {
+    id name status
+  }
+}
+```
+```json
+{
+  "input": {
+    "name": "Website Redesign",
+    "code": "WR-2024",
+    "clientId": 1,
+    "status": "InProgress",
+    "public": false
+  }
+}
+```
+
+### Task Management
+
+```graphql
+# Create task
+mutation CreateTask($input: CreateTaskInput!) {
+  createTask(input: $input) {
+    id title projectId assignedToId important
+  }
+}
+```
+```json
+{
+  "input": {
+    "projectId": 5,
+    "createdById": 1,
+    "assignedToId": 2,
+    "title": "Draft wireframes",
+    "details": "Homepage + pricing",
+    "important": true,
+    "dueDate": "2024-03-10"
+  }
+}
+```
+
+For complete API documentation with all entities and operations, see `api.vibrandstudio.com/README.md`.
+
+## Deployment
+
+### Backend Deployment
+
+1. Set environment variables in production
+2. Run migrations: `npx prisma migrate deploy`
+3. Build: `npm run build`
+4. Start: `npm run start:prod`
+5. Ensure `/uploads` directory exists and is writable
+6. Configure reverse proxy (nginx/Apache) for static file serving
+
+### Frontend Deployments
+
+Both frontends are static sites after build:
+
+```powershell
+# Build each frontend
+cd vibrandstudio.com; npm run build
+cd web.vibrandstudio.com; npm run build
+```
+
+Deploy `dist/` folders to:
+- Static hosting (Netlify, Vercel, Cloudflare Pages)
+- CDN (AWS S3 + CloudFront, Azure Blob Storage)
+- Traditional web server (nginx, Apache)
+
+**Important**: Update API URLs in:
+- `vibrandstudio.com/src/utils/request.ts`
+- `web.vibrandstudio.com/src/utils/urlUtils.ts`
+
+## Development Workflow
+
+1. **Start backend first**: `cd api.vibrandstudio.com && npm run start:dev`
+2. **Verify GraphQL**: Open `http://localhost:3000/graphql` (if playground enabled)
+3. **Start frontends**: Run `npm run dev` from root or individually
+4. **Make changes**: Hot reload works in all three projects
+5. **Test offline**: Use DevTools to simulate offline mode in web app
+6. **Check real-time**: Open web app in multiple tabs to see live updates
+
+## Troubleshooting
+
+### Backend Issues
+- **Database connection fails**: Check `DATABASE_URL` in `.env`
+- **GraphQL errors**: Ensure Prisma client is generated: `npx prisma generate`
+- **File upload fails**: Check `/uploads` directory exists and is writable
+
+### Frontend Issues
+- **API connection fails**: Verify API URL in utils files
+- **Auth issues**: Clear localStorage and try logging in again
+- **PWA not installing**: Check manifest.json and ensure HTTPS in production
+- **Offline sync not working**: Check IndexedDB in DevTools Application tab
+
+### Development Tips
+- Use `npx prisma studio` to browse database visually
+- Check browser console for GraphQL errors
+- Monitor network tab for failed requests
+- Use React DevTools for component debugging
+- Check Application > Service Workers in DevTools for PWA issues
+
+## Repository Structure
+
+```
+vibrand-new/
+├── api.vibrandstudio.com/          # Backend (NestJS + GraphQL)
+│   ├── prisma/schema.prisma        # Database schema
+│   ├── src/                        # Source code
+│   │   ├── auth/                   # Authentication module
+│   │   ├── users/                  # User management
+│   │   ├── projects/               # Project CRUD
+│   │   ├── tasks/                  # Tasks + Socket.IO gateway
+│   │   ├── mail/                   # Email service
+│   │   └── ...                     # Other modules
+│   └── uploads/                    # File storage
+├── vibrandstudio.com/              # Portfolio website
+│   ├── src/
+│   │   ├── components/             # React components
+│   │   ├── pages/                  # Page components
+│   │   ├── store/                  # Redux store
+│   │   ├── services/               # API services
+│   │   └── utils/                  # Utilities
+│   └── dist/                       # Build output
+├── web.vibrandstudio.com/          # Web app (PWA)
+│   ├── src/
+│   │   ├── components/             # UI components
+│   │   ├── pages/                  # Page routes
+│   │   ├── hooks/                  # Custom hooks
+│   │   ├── services/               # API layer
+│   │   ├── utils/                  # Utilities
+│   │   ├── lib/offline-db.ts       # IndexedDB
+│   │   └── contexts/               # React contexts
+│   ├── public/manifest.json        # PWA manifest
+│   └── dist/                       # Build output
+├── package.json                    # Root package (concurrently scripts)
+├── database.sql                    # Database dump/schema
+└── README.md                       # This file
+```
+
+## Contributing
+
+1. Create a feature branch from `main`
+2. Make changes in the appropriate subproject
+3. Test locally with `npm run dev`
+4. Run linting: `npm run lint` in the affected folder
+5. Commit with descriptive messages
+6. Push and create a pull request
+
+## License
+
+Proprietary - Vibrand Studio
+
+---
+
+For detailed documentation on each part:
+- **API**: See `api.vibrandstudio.com/README.md`
+- **Portfolio**: See `vibrandstudio.com/README.md`
+- **Web App**: See `web.vibrandstudio.com/README.md`
 
 ## Environment / Database checklist
 

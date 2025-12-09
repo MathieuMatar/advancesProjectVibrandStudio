@@ -7,6 +7,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from '../users/users.module';
 import { AuthResolver } from './auth.resolver';
 
+/**
+ * Authentication module wiring JWT strategy, resolver, and service.
+ */
 @Module({
   imports: [
     ConfigModule,

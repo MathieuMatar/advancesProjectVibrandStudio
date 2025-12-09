@@ -3,10 +3,16 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateProjectDTO } from './dto/CreateProjectDTO';
 import { UpdateProjectDTO } from './dto/UpdateProjectDTO';
 
+/**
+ * Business logic for project entities and their relations.
+ */
 @Injectable()
 export class ProjectsService {
   constructor(private readonly prisma: PrismaService) {}
 
+  /**
+   * Creates a project with related entities included.
+   */
   create(dto: CreateProjectDTO) {
     return this.prisma.project.create({ data: dto as any, include: { client: true, milestones: true, tasks: true, services: true, users: true } });
   }
@@ -23,17 +29,26 @@ export class ProjectsService {
     return this.prisma.project.findMany({ where, include: { client: true, milestones: true, tasks: true, services: true, users: true } });
   }
 
+  /**
+   * Retrieves a single project including relations or throws when missing.
+   */
   async findOne(id: number) {
     const found = await this.prisma.project.findUnique({ where: { id }, include: { client: true, milestones: true, tasks: true, services: true, users: true } });
     if (!found) throw new NotFoundException(`Project ${id} not found`);
     return found;
   }
 
+  /**
+   * Updates a project after ensuring it exists.
+   */
   async update(id: number, dto: UpdateProjectDTO) {
     await this.findOne(id);
     return this.prisma.project.update({ where: { id }, data: dto as any, include: { client: true, milestones: true, tasks: true, services: true, users: true } });
   }
 
+  /**
+   * Associates a user with a project.
+   */
   async addUserToProject(projectId: number, userId: number) {
     // ensure project exists
     await this.findOne(projectId);
@@ -55,6 +70,9 @@ export class ProjectsService {
     return updated;
   }
 
+  /**
+   * Associates a service with a project.
+   */
   async addServiceToProject(projectId: number, serviceId: number) {
     // ensure project exists
     await this.findOne(projectId);
@@ -76,6 +94,9 @@ export class ProjectsService {
     return updated;
   }
 
+  /**
+   * Deletes a project and returns a confirmation payload.
+   */
   async remove(id: number) {
     await this.findOne(id);
     await this.prisma.project.delete({ where: { id } });

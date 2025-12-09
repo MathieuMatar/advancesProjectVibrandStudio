@@ -5,6 +5,9 @@ import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+/**
+ * Provides project resolvers and service along with JWT utilities for optional auth-aware queries.
+ */
 @Module({
   imports: [
     UsersModule,

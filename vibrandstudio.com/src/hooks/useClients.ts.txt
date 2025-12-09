@@ -6,6 +6,7 @@ export type Client = {
     id: number;
     name: string;
     image: string;
+    animation: string;
 };
 
 const useClients = () => {

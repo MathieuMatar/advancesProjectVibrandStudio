@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { taskService } from '../services/taskService';
 import Storage from '../utils/storage';
+import { io } from "socket.io-client";
+import { API_BASE_URL } from '../utils/urlUtils';
 
 /**
  * TaskItem
@@ -23,6 +25,10 @@ export interface TaskItem {
  * Map of task id -> TaskItem. Used to keep tasks in a keyed structure instead of arrays.
  */
 export type TaskMap = Record<number, TaskItem>;
+
+
+const socket = io(API_BASE_URL);
+
 
 /**
  * useTasks
@@ -68,55 +74,114 @@ export function useTasks(initialTasks: TaskMap, projectId?: number) {
 
     const [tasks, setTasks] = useState<TaskMap>(() => normalizeOrders(initialTasks));
     const [completedVisible, setCompletedVisible] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+
+
+
+
+
+
+
+
+
+    useEffect(() => {
+        // 🔥 Listen for backend updates
+        socket.on("taskUpdated", (updatedTask) => {
+
+            // If this task does not belong to this project, ignore it
+            // (Assuming your task object includes projectId)
+            if (updatedTask.projectId !== projectId) return;
+
+            setTasks(prev => ({
+                ...prev,
+                [updatedTask.id]: {
+                    ...prev[updatedTask.id],
+                    ...updatedTask
+                }
+            }));
+        });
+
+        // Cleanup on unmount
+        return () => {
+            socket.off("taskUpdated");
+        };
+    }, [projectId]);
+
+
+
+
+
 
     const updateTask = (id: number, updatedTask: TaskItem) => {
         setTasks(prev => ({ ...prev, [id]: updatedTask }));
     };
 
     const complete = async (id: number) => {
-        if (tasks[id].completedById) {
-            taskService.uncompleteTask(id).then(() => {
+        setError(null);
+        try {
+            if (tasks[id].completedById) {
+                await taskService.uncompleteTask(id);
                 const maxOrder = Math.max(...Object.values(tasks).map(t => t.order));
                 setTasks(prev => {
                     tasks[id].completedById = null;
                     tasks[id].order = maxOrder + 1;
                     return { ...prev };
                 });
-            });
-        } else {
-            const user = await Storage.getUser();
-            taskService.completeTask(id).then(() => {
+            } else {
+                const user = await Storage.getUser();
+                await taskService.completeTask(id);
                 setTasks(prev => ({
                     ...prev,
                     [id]: { ...prev[id], completedById: user.user.id, order: 0 }
                 }));
-            });
+            }
+        } catch (err: any) {
+            let message = 'Error updating task completion';
+            if (err?.message) message += `: ${err.message}`;
+            setError(message);
         }
     };
 
-    const reorder = (id: number, direction: 'up' | 'down') => {
-        const currentTask = tasks[id];
-        const targetOrder = direction === 'up' ? currentTask.order - 1 : currentTask.order + 1;
-        const swapTaskId = Object.keys(tasks).find(key => tasks[Number(key)].order === targetOrder);
-        if (!swapTaskId) return;
+    const reorder = async (id: number, direction: 'up' | 'down') => {
+        setError(null);
+        try {
+            const currentTask = tasks[id];
+            const targetOrder = direction === 'up' ? currentTask.order - 1 : currentTask.order + 1;
+            const swapTaskId = Object.keys(tasks).find(key => tasks[Number(key)].order === targetOrder);
+            if (!swapTaskId) return;
 
-        const updatedTasks = { ...tasks };
-        updatedTasks[id] = { ...currentTask, order: targetOrder };
-        updatedTasks[Number(swapTaskId)] = { ...updatedTasks[Number(swapTaskId)], order: currentTask.order };
+            const updatedTasks = { ...tasks };
+            updatedTasks[id] = { ...currentTask, order: targetOrder };
+            updatedTasks[Number(swapTaskId)] = { ...updatedTasks[Number(swapTaskId)], order: currentTask.order };
 
-        setTasks(normalizeOrders(updatedTasks));
+            setTasks(normalizeOrders(updatedTasks));
+            await taskService.updateTask(id, { order: targetOrder });
+        } catch (err: any) {
+            let message = 'Error reordering task';
+            if (err?.message) message += `: ${err.message}`;
+            setError(message);
+        }
     };
 
-    const deleteTask = (id: number) => {
-        taskService.deleteTask(id).then(() => {
+    const deleteTask = async (id: number) => {
+        setError(null);
+        try {
+            await taskService.deleteTask(id);
             const updatedTasks = { ...tasks };
             delete updatedTasks[id];
             setTasks(normalizeOrders(updatedTasks));
-        });
+        } catch (err: any) {
+            let message = 'Error deleting task';
+            if (err?.message) message += `: ${err.message}`;
+            setError(message);
+        }
     };
 
-    const addTask = () => {
-        taskService.addEmptyTask(projectId).then(newTask => {
+    const addTask = async () => {
+        setError(null);
+        try {
+            const newTask = await taskService.addEmptyTask(projectId);
             const newTaskId = newTask.id;
             delete newTask.id;
 
@@ -124,7 +189,11 @@ export function useTasks(initialTasks: TaskMap, projectId?: number) {
             newTask.order = 1;
 
             setTasks(prev => ({ ...prev, [newTaskId]: newTask }));
-        });
+        } catch (err: any) {
+            let message = 'Error adding task';
+            if (err?.message) message += `: ${err.message}`;
+            setError(message);
+        }
     };
 
     return {
@@ -136,5 +205,7 @@ export function useTasks(initialTasks: TaskMap, projectId?: number) {
         addTask,
         completedVisible,
         setCompletedVisible,
+        error,
+        setError,
     };
 }

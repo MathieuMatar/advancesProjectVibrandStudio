@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { dateInputToISO } from '../utils/dateUtils';
 import { milestoneService } from '../services/milestoneService';
 
 /**
@@ -31,6 +32,7 @@ import { milestoneService } from '../services/milestoneService';
 export function useMilestones(initialMilestones: any[], ProjectId: number) {
     const [milestones, setMilestones] = useState(initialMilestones);
     const [edit, setEdit] = useState<any | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     // Handle input changes in the edit form
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -44,26 +46,21 @@ export function useMilestones(initialMilestones: any[], ProjectId: number) {
     // Handle form submission
     const handleUpdate = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        setError(null);
         try {
             if (edit?.id) {
-                // Convert date input to ISO format
-                const isoDueDate = new Date(edit.dueDate).toISOString();
-
+                const isoDueDate = dateInputToISO(edit.dueDate);
                 const updated = await milestoneService.updateMilestone(edit.id, {
                     name: edit.name,
                     description: edit.description,
-                    dueDate: isoDueDate, // <-- send ISO format date
+                    dueDate: isoDueDate,
                     status: edit.status,
                 });
-
-                // Update the milestone in local state
                 setMilestones((prev) =>
                     prev.map((m) => (m.id === updated.id ? updated : m))
                 );
             } else {
-                // Creating a new milestone
-                const isoDueDate = edit?.dueDate ? new Date(edit.dueDate).toISOString() : null;
+                const isoDueDate = edit?.dueDate ? dateInputToISO(edit.dueDate) : null;
                 const created = await milestoneService.createMilestone({
                     input: {
                         projectId: ProjectId,
@@ -74,21 +71,23 @@ export function useMilestones(initialMilestones: any[], ProjectId: number) {
                 });
                 setMilestones((prev) => [...prev, created]);
             }
-
-            setEdit(null); // Close the form
-        } catch (err) {
-            console.error('Update failed:', err);
-            alert('Failed to update milestone');
+            setEdit(null);
+        } catch (err: any) {
+            let message = 'Failed to update milestone';
+            if (err?.message) message += `: ${err.message}`;
+            setError(message);
         }
     };
 
     const handleDelete = async (id: number) => {
+        setError(null);
         try {
             await milestoneService.deleteMilestone(id);
             setMilestones((prev) => prev.filter((m) => m.id !== id));
-        } catch (err) {
-            console.error('Delete failed:', err);
-            alert('Failed to delete milestone');
+        } catch (err: any) {
+            let message = 'Failed to delete milestone';
+            if (err?.message) message += `: ${err.message}`;
+            setError(message);
         }
     };
 
@@ -98,6 +97,8 @@ export function useMilestones(initialMilestones: any[], ProjectId: number) {
         setEdit,
         handleChange,
         handleUpdate,
-        handleDelete
+        handleDelete,
+        error,
+        setError,
     };
 }
